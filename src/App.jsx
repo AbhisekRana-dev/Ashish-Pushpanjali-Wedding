@@ -63,28 +63,43 @@ function EnvelopeOpening() {
   const [opened, setOpened] = useState(false);
   const [cardUp, setCardUp] = useState(false);
 
+  const openEnvelope = () => {
+    if (!opened) setOpened(true);
+  };
+
   useEffect(() => {
+    if (!opened) return;
     if (reducedMotion) {
-      setOpened(true);
       setCardUp(true);
       return;
     }
-    const openTimer = window.setTimeout(() => setOpened(true), 900);
-    const cardTimer = window.setTimeout(() => setCardUp(true), 2050);
-    return () => {
-      window.clearTimeout(openTimer);
-      window.clearTimeout(cardTimer);
-    };
-  }, [reducedMotion]);
+    const cardTimer = window.setTimeout(() => setCardUp(true), 1050);
+    return () => window.clearTimeout(cardTimer);
+  }, [opened, reducedMotion]);
+
+  const handleEnvelopeKeyDown = event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openEnvelope();
+    }
+  };
 
   return <section className="envelope-scroll-section" aria-label="The wedding invitation envelope">
     <Petals muted={reducedMotion}/>
     <div className="envelope-intro-copy">
       <span className="intro-overline">A LITTLE SOMETHING, SEALED WITH LOVE</span>
       <h1>A Special Invitation <em>For You</em></h1>
-      <p>Our invitation, opened with love</p>
+      <p>{opened ? 'Your invitation is open — scroll down to explore' : 'Tap the envelope to open your invitation'}</p>
     </div>
-    <div className={`envelope-stage ${opened ? 'is-opening' : ''} ${cardUp ? 'card-is-up' : ''}`}>
+    <div
+      className={`envelope-stage ${opened ? 'is-opening' : ''} ${cardUp ? 'card-is-up' : ''}`}
+      role="button"
+      tabIndex={0}
+      aria-label={opened ? 'Wedding invitation envelope opened' : 'Tap the envelope to open your wedding invitation'}
+      aria-pressed={opened}
+      onClick={openEnvelope}
+      onKeyDown={handleEnvelopeKeyDown}
+    >
       <div className="envelope-glow"/>
       <div className="invitation-paper">
         <div className="paper-floral-corner top-left">✿</div>
