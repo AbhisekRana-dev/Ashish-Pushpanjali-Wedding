@@ -457,14 +457,20 @@ export default function App() {
         </main>
         {envelopeRevealed && <>
         <Footer/>
-        <nav className="mobile-quick-dock" aria-label="Wedding quick navigation">
-          <a href="#events"><CalendarDays size={18}/><span>EVENTS</span></a>
-          <a href="#gallery"><Flower2 size={18}/><span>GALLERY</span></a>
-          <button type="button" className="dock-music" onClick={toggleMusic} aria-label={musicOn ? "Pause Ganesh Vandana instrumental" : "Play Ganesh Vandana instrumental"}>{musicOn ? <Pause size={18}/> : <Music2 size={18}/>}<span>{musicOn ? 'PLAYING' : 'VANDANA'}</span></button>
-          <a href="#rsvp"><Heart size={18}/><span>RSVP</span></a>
-        </nav>
-        {showTop && <button type="button" className="top-action" aria-label="Back to top" onClick={()=>window.scrollTo({top:0,behavior:reducedMotion?'auto':'smooth'})}><ArrowUpRight size={17}/></button>}
-        {showBlessing && <div className="wish-toast" role="status" onAnimationEnd={()=>setShowBlessing(false)}><Sparkles size={16}/>{blessings[blessing]}</div>}
+        <div className="wedding-floating-controls" aria-label="Music and page controls">
+          <button
+            type="button"
+            className={`music-float-button ${musicOn ? 'music-is-on' : ''}`}
+            onClick={toggleMusic}
+            aria-label={musicOn ? 'Turn wedding background music off' : 'Turn wedding background music on'}
+            aria-pressed={musicOn}
+          >
+            {musicOn ? <Pause size={17}/> : <Play size={17}/>}
+            <span>{musicOn ? 'MUSIC ON' : 'MUSIC OFF'}</span>
+          </button>
+          {showTop && <button type="button" className="top-action" aria-label="Back to top" onClick={()=>window.scrollTo({top:0,behavior:reducedMotion?'auto':'smooth'})}><ArrowUpRight size={20}/></button>}
+        </div>
+{showBlessing && <div className="wish-toast" role="status" onAnimationEnd={()=>setShowBlessing(false)}><Sparkles size={16}/>{blessings[blessing]}</div>}
         </>}
       </div>
     {activePhoto >= 0 && <GalleryViewer photo={wedding.gallery[activePhoto]} index={activePhoto} total={wedding.gallery.length} onClose={closePhoto} onNext={nextPhoto} onPrevious={prevPhoto}/>}
