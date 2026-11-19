@@ -1,8 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-label="Ashish and Pushpanjali wedding invitation">
-<defs><linearGradient id="wine" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#260b14"/><stop offset=".52" stop-color="#6b2439"/><stop offset="1" stop-color="#310d1b"/></linearGradient><linearGradient id="gold"><stop stop-color="#f6e8c6"/><stop offset=".5" stop-color="#d5ad66"/><stop offset="1" stop-color="#f4dfb0"/></linearGradient></defs>
-<rect width="1000" height="620" fill="url(#wine)"/><rect x="22" y="22" width="956" height="576" rx="5" fill="none" stroke="url(#gold)" stroke-width="3"/><rect x="38" y="38" width="924" height="544" fill="none" stroke="#e5c98f" stroke-opacity=".45"/>
-<g fill="none" stroke="url(#gold)" stroke-width="2"><circle cx="500" cy="110" r="45"/><circle cx="500" cy="110" r="34"/><path d="M500 57 C474 85 478 110 500 130 C522 110 526 85 500 57Z" fill="#d8b16b" fill-opacity=".32"/></g>
-<text x="500" y="220" text-anchor="middle" fill="#f0d9a8" font-family="Georgia,serif" font-size="25">॥ श्री गणेशाय नमः ॥</text><text x="500" y="268" text-anchor="middle" fill="#e3c28a" font-family="Arial,sans-serif" font-size="13" letter-spacing="6">WITH THE BLESSINGS OF OUR FAMILIES</text>
-<text x="500" y="345" text-anchor="middle" fill="#fff1d5" font-family="Georgia,serif" font-size="62">ASHISH &amp;</text><text x="500" y="415" text-anchor="middle" fill="#fff1d5" font-family="Georgia,serif" font-size="62">PUSHPANJALI</text>
-<text x="500" y="458" text-anchor="middle" fill="#e9ce9c" font-family="serif" font-size="24">आशीष कुमार गुप्ता ♥ पुष्पांजलि कुमारी</text><path d="M330 490h120m100 0h120" stroke="#d8b16b"/><path d="M500 480l10 10-10 10-10-10Z" fill="#e9cf99"/>
-<text x="500" y="536" text-anchor="middle" fill="#f3dfb7" font-family="Arial,sans-serif" font-size="17" letter-spacing="4">05 · 08 · 09 DECEMBER 2026</text><text x="500" y="563" text-anchor="middle" fill="#d8b16b" font-family="Arial,sans-serif" font-size="11" letter-spacing="3">DARBHANGA · BIHAR</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" role="img" aria-label="Ashish and Pushpanjali wedding invitation card">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#200817"/><stop offset=".48" stop-color="#682039"/><stop offset="1" stop-color="#240817"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0c7"/><stop offset=".38" stop-color="#c18a3e"/><stop offset=".68" stop-color="#f4d995"/><stop offset="1" stop-color="#9a642d"/></linearGradient>
+  <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff8e8"/><stop offset=".5" stop-color="#f6e3c8"/><stop offset="1" stop-color="#fff1dd"/></linearGradient>
+  <linearGradient id="curtain" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#310a20"/><stop offset=".5" stop-color="#9e2c54"/><stop offset="1" stop-color="#3b0c24"/></linearGradient>
+  <radialGradient id="glow"><stop stop-color="#ffe6a3" stop-opacity=".45"/><stop offset="1" stop-color="#ffe6a3" stop-opacity="0"/></radialGradient>
+  <g id="flower">
+    <circle r="8" fill="#f5c35f"/>
+    <g fill="#f5e0bd"><ellipse cy="-13" rx="5" ry="9"/><ellipse cy="13" rx="5" ry="9"/><ellipse cx="-13" rx="9" ry="5"/><ellipse cx="13" rx="9" ry="5"/></g>
+    <circle r="3.5" fill="#bc6b4d"/>
+  </g>
+  <g id="hanging"><path d="M0 0V50" stroke="#d9b16b" stroke-width="2"/><use href="#flower" transform="translate(0 62) scale(.8)"/><path d="M0 75V104" stroke="#d9b16b" stroke-width="1.5"/><circle cy="110" r="4" fill="#f3dca8"/></g>
+  <g id="diya">
+    <path d="M-29 0Q0 17 29 0Q18 23 0 24Q-18 23-29 0Z" fill="#d79d44" stroke="#fff0c0" stroke-width="2"/>
+    <path d="M0 -3C-17 -24 11 -37 0 -58C18 -41 14 -21 0 -3Z" fill="#ffb84d"/>
+    <path d="M0 -7C-7 -22 8 -30 3 -43C15 -27 7 -15 0 -7Z" fill="#fff2b5"/>
+  </g>
+  <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#e6c382" opacity=".35"/></pattern>
+</defs>
+<rect width="1200" height="820" fill="url(#bg)"/>
+<rect width="1200" height="820" fill="url(#dots)"/>
+<ellipse cx="600" cy="385" rx="560" ry="470" fill="url(#glow)"/>
+<path d="M0 0H1200V150C1060 105 1030 28 900 0C790 65 760 118 600 125C440 118 410 65 300 0C170 28 140 105 0 150Z" fill="#45102b" stroke="url(#gold)" stroke-width="5"/>
+<path d="M0 0C90 190 72 260 18 820H170C155 570 178 260 122 0Z" fill="url(#curtain)" stroke="url(#gold)" stroke-width="3"/>
+<path d="M1200 0C1110 190 1128 260 1182 820H1030C1045 570 1022 260 1078 0Z" fill="url(#curtain)" stroke="url(#gold)" stroke-width="3"/>
+<path d="M0 115Q145 168 260 40M1200 115Q1055 168 940 40" fill="none" stroke="#e6bb73" stroke-width="5"/>
+<path d="M180 0C220 95 247 117 305 143M1020 0C980 95 953 117 895 143" fill="none" stroke="#d9a75b" stroke-width="5"/>
+<g opacity=".96">
+  <use href="#hanging" transform="translate(210 12) scale(.9)"/><use href="#hanging" transform="translate(267 30) scale(.75)"/>
+  <use href="#hanging" transform="translate(335 46) scale(.65)"/><use href="#hanging" transform="translate(890 46) scale(.65)"/>
+  <use href="#hanging" transform="translate(953 30) scale(.75)"/><use href="#hanging" transform="translate(1010 12) scale(.9)"/>
+  <use href="#hanging" transform="translate(70 210) scale(.8)"/><use href="#hanging" transform="translate(1130 210) scale(.8)"/>
+</g>
+<g fill="none" stroke="url(#gold)" stroke-width="3" opacity=".9">
+  <path d="M20 200Q145 320 20 435M1180 200Q1055 320 1180 435"/>
+  <path d="M35 0Q190 175 250 0M1165 0Q1010 175 950 0"/>
+</g>
+<rect x="184" y="98" width="832" height="642" rx="4" fill="#1a0714" opacity=".34"/>
+<rect x="176" y="88" width="848" height="650" rx="4" fill="url(#paper)" stroke="url(#gold)" stroke-width="5"/>
+<rect x="194" y="106" width="812" height="614" fill="none" stroke="#b98649" stroke-width="1.7"/>
+<rect x="205" y="117" width="790" height="592" fill="none" stroke="#e0c18b" stroke-width="1" stroke-dasharray="3 7"/>
+<g fill="none" stroke="#be8748" stroke-width="2" opacity=".85">
+  <path d="M214 170Q250 120 285 170Q250 205 214 170ZM986 170Q950 120 915 170Q950 205 986 170Z"/>
+  <path d="M214 675Q250 625 285 675Q250 710 214 675ZM986 675Q950 625 915 675Q950 710 986 675Z"/>
+</g>
+<g transform="translate(600 170)">
+  <circle r="35" fill="none" stroke="url(#gold)" stroke-width="2"/>
+  <circle r="27" fill="none" stroke="#ba854a" stroke-width="1"/>
+  <path d="M0 -22C-13 -8-12 5 0 16C12 5 13 -8 0 -22ZM-21 0C-8 -13 5 -12 16 0C5 12-8 13-21 0ZM21 0C8 -13-5 -12-16 0C-5 12 8 13 21 0Z" fill="#d5ae68" fill-opacity=".5" stroke="#ad7440" stroke-width="1.2"/>
+  <circle r="5" fill="#b75f64"/>
+</g>
+<text x="600" y="235" text-anchor="middle" fill="#a15f44" font-family="Georgia,serif" font-size="29">॥ श्री गणेशाय नमः ॥</text>
+<text x="600" y="270" text-anchor="middle" fill="#9b775c" font-family="Arial,sans-serif" font-size="13" letter-spacing="5">WITH THE BLESSINGS OF OUR FAMILIES</text>
+<text x="600" y="340" text-anchor="middle" fill="#61243a" font-family="Georgia,serif" font-size="51">ASHISH KUMAR GUPTA</text>
+<text x="600" y="385" text-anchor="middle" fill="#ba8743" font-family="Georgia,serif" font-size="32" font-style="italic">&amp;</text>
+<text x="600" y="444" text-anchor="middle" fill="#61243a" font-family="Georgia,serif" font-size="51">PUSHPANJALI KUMARI</text>
+<text x="600" y="488" text-anchor="middle" fill="#a45465" font-family="Georgia,serif" font-size="25">आशीष कुमार गुप्ता ♥ पुष्पांजलि कुमारी</text>
+<path d="M390 526H510M690 526H810" stroke="#c79a58" stroke-width="2"/>
+<path d="M600 514L612 526L600 538L588 526Z" fill="#c18a43"/>
+<text x="600" y="580" text-anchor="middle" fill="#8b453e" font-family="Georgia,serif" font-size="32" font-weight="bold">शुभ विवाह</text>
+<text x="600" y="614" text-anchor="middle" fill="#916b55" font-family="Georgia,serif" font-size="20">We request the honour of your presence</text>
+<text x="600" y="656" text-anchor="middle" fill="#82513f" font-family="Arial,sans-serif" font-size="20" letter-spacing="3">05 · 08 · 09 DECEMBER 2026</text>
+<text x="600" y="688" text-anchor="middle" fill="#9c744f" font-family="Arial,sans-serif" font-size="13" letter-spacing="4">DARBHANGA · BIHAR</text>
+<g transform="translate(92 648) scale(1.0)"><use href="#diya"/></g><g transform="translate(1108 648) scale(1.0)"><use href="#diya"/></g>
+<g fill="none" stroke="url(#gold)" stroke-width="2"><path d="M70 765H1130M80 780H1120"/></g>
+<text x="600" y="781" text-anchor="middle" fill="#f3d7a1" font-family="Georgia,serif" font-size="18" letter-spacing="2">A CELEBRATION OF LOVE &amp; TOGETHERNESS</text>
+</svg>
