@@ -58,7 +58,7 @@ function useReveal(enabled) {
 }
 
 
-function EnvelopeOpening() {
+function EnvelopeOpening({ onReveal }) {
   const reducedMotion = useReducedMotion();
   const [opened, setOpened] = useState(false);
   const [cardUp, setCardUp] = useState(false);
@@ -71,35 +71,25 @@ function EnvelopeOpening() {
     if (!opened) return;
     if (reducedMotion) {
       setCardUp(true);
-      return;
+      const revealTimer = window.setTimeout(onReveal, 250);
+      return () => window.clearTimeout(revealTimer);
     }
-    const cardTimer = window.setTimeout(() => setCardUp(true), 1050);
-    return () => window.clearTimeout(cardTimer);
-  }, [opened, reducedMotion]);
+    const cardTimer = window.setTimeout(() => setCardUp(true), 650);
+    const revealTimer = window.setTimeout(onReveal, 2250);
+    return () => {
+      window.clearTimeout(cardTimer);
+      window.clearTimeout(revealTimer);
+    };
+  }, [opened, reducedMotion, onReveal]);
 
-  const handleEnvelopeKeyDown = event => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      openEnvelope();
-    }
-  };
-
-  return <section className="envelope-scroll-section" aria-label="The wedding invitation envelope">
+  return <section className={`envelope-scroll-section ${cardUp ? 'envelope-is-open' : 'envelope-is-closed'}`} aria-label="The wedding invitation envelope">
     <Petals muted={reducedMotion}/>
     <div className="envelope-intro-copy">
       <span className="intro-overline">A LITTLE SOMETHING, SEALED WITH LOVE</span>
       <h1>A Special Invitation <em>For You</em></h1>
-      <p>{opened ? 'Your invitation is open — scroll down to explore' : 'Tap the envelope to open your invitation'}</p>
+      <p>{opened ? 'Your invitation is opening...' : 'Tap the envelope to open your invitation'}</p>
     </div>
-    <div
-      className={`envelope-stage ${opened ? 'is-opening' : ''} ${cardUp ? 'card-is-up' : ''}`}
-      role="button"
-      tabIndex={0}
-      aria-label={opened ? 'Wedding invitation envelope opened' : 'Tap the envelope to open your wedding invitation'}
-      aria-pressed={opened}
-      onClick={openEnvelope}
-      onKeyDown={handleEnvelopeKeyDown}
-    >
+    <div className={`envelope-stage ${opened ? 'is-opening' : ''} ${cardUp ? 'card-is-up' : ''}`}>
       <div className="envelope-glow"/>
       <div className="invitation-paper">
         <div className="paper-floral-corner top-left">✿</div>
@@ -124,16 +114,25 @@ function EnvelopeOpening() {
           <span className="wax-center"><Heart size={25} fill="currentColor" strokeWidth={1.2}/></span>
         </div>
       </div>
+      <button
+        className="envelope-open-button"
+        type="button"
+        onClick={openEnvelope}
+        disabled={opened}
+        aria-label={opened ? 'Envelope opening' : 'Tap once to open the wedding envelope'}
+      />
     </div>
     <div className="envelope-under-copy">
       <span className="tiny-flourish">✦</span>
       <span>WITH LOVE, ASHISH & PUSHPANJALI</span>
       <span className="tiny-flourish">✦</span>
     </div>
-    <div className="envelope-scroll-hint" aria-hidden="true">SCROLL TO EXPLORE <ChevronDown size={15}/></div>
+    <div className="envelope-scroll-hint" aria-hidden="true">
+      {cardUp ? 'YOUR INVITATION IS OPEN — SCROLL DOWN' : 'ONE TAP TO OPEN'}
+      <ChevronDown size={15}/>
+    </div>
   </section>;
 }
-
 
 function CountDown() {
   const target = useMemo(() => new Date(`${wedding.eventYear}-12-09T00:00:00+05:30`).getTime(), []);
@@ -303,6 +302,8 @@ function Footer() {
 
 export default function App() {
   const reducedMotion = useReducedMotion();
+  const [envelopeRevealed, setEnvelopeRevealed] = useState(false);
+  const revealWebsite = React.useCallback(() => setEnvelopeRevealed(true), []);
   const [activePhoto, setActivePhoto] = useState(-1);
   const [showBlessing, setShowBlessing] = useState(false);
   const [blessing, setBlessing] = useState(0);
@@ -311,7 +312,7 @@ export default function App() {
   const [showTop, setShowTop] = useState(false);
   const audio = useRef(null);
 
-  useReveal(true);
+  useReveal(envelopeRevealed);
 
   useEffect(() => {
     const update = () => {
@@ -337,7 +338,8 @@ export default function App() {
     <audio ref={audio} src={wedding.backgroundMusic} loop preload="none" onPause={() => setMusicOn(false)} onPlay={() => setMusicOn(true)}/>
     <div className="invite-website"><div className="page-progress" style={{ transform: `scaleX(${scrollPct})` }}/>
         <main>
-          <EnvelopeOpening/>
+          <EnvelopeOpening onReveal={revealWebsite}/>
+          {envelopeRevealed && <>
           <section className="invite-hero" id="home">
             <Petals muted={reducedMotion}/>
             <div className="hero-card-art" data-reveal>
@@ -380,13 +382,16 @@ export default function App() {
 
           <BlessingForm/>
           <RSVP/>
+          </>}
         </main>
+        {envelopeRevealed && <>
         <Footer/>
         <div className="float-actions">
           <button type="button" className={`music-action ${musicOn ? 'active' : ''}`} onClick={toggleMusic} aria-label={musicOn ? 'Pause music' : 'Play music'}>{musicOn ? <Pause size={17}/> : <Play size={17}/>}<span>{musicOn ? 'MUSIC ON' : 'MUSIC'}</span></button>
           {showTop && <button type="button" className="top-action" aria-label="Back to top" onClick={()=>window.scrollTo({top:0,behavior:reducedMotion?'auto':'smooth'})}><ArrowUpRight size={17}/></button>}
         </div>
         {showBlessing && <div className="wish-toast" role="status" onAnimationEnd={()=>setShowBlessing(false)}><Sparkles size={16}/>{blessings[blessing]}</div>}
+        </>}
       </div>
     {activePhoto >= 0 && <GalleryViewer photo={wedding.gallery[activePhoto]} index={activePhoto} total={wedding.gallery.length} onClose={closePhoto} onNext={nextPhoto} onPrevious={prevPhoto}/>}
   </>;
