@@ -40,6 +40,7 @@ function useReveal(enabled) {
       nodes.forEach(node => node.classList.add('is-visible'));
       return;
     }
+    document.documentElement.classList.add('has-scroll-reveal');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -49,7 +50,10 @@ function useReveal(enabled) {
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
     nodes.forEach(node => observer.observe(node));
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove('has-scroll-reveal');
+    };
   }, [enabled]);
 }
 
