@@ -241,8 +241,6 @@ function Footer() {
 
 export default function App() {
   const reducedMotion = useReducedMotion();
-  const [introDone, setIntroDone] = useState(false);
-  const [sectionReady, setSectionReady] = useState(false);
   const [activePhoto, setActivePhoto] = useState(-1);
   const [showBlessing, setShowBlessing] = useState(false);
   const [blessing, setBlessing] = useState(0);
@@ -251,9 +249,8 @@ export default function App() {
   const [showTop, setShowTop] = useState(false);
   const audio = useRef(null);
 
-  useReveal(sectionReady);
+  useReveal(true);
 
-  const finishIntro = React.useCallback(() => { setIntroDone(true); setSectionReady(true); }, []);
   useEffect(() => {
     const update = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -276,8 +273,7 @@ export default function App() {
 
   return <>
     <audio ref={audio} src={wedding.backgroundMusic} loop preload="none" onPause={() => setMusicOn(false)} onPlay={() => setMusicOn(true)}/>
-    {!introDone ? <EnvelopeIntro onContinue={finishIntro} reducedMotion={reducedMotion}/> :
-      <div className="invite-website"><div className="page-progress" style={{ transform: `scaleX(${scrollPct})` }}/>
+    <div className="invite-website"><div className="page-progress" style={{ transform: `scaleX(${scrollPct})` }}/>
         <main>
           <section className="invite-hero" id="home">
             <Petals muted={reducedMotion}/>
@@ -319,10 +315,6 @@ export default function App() {
 
           <Gallery onOpen={openPhoto}/>
 
-          <section className="scratch-section-wrap" id="scratch">
-            <ScratchReveal onReveal={() => document.getElementById('invitation-details')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' })} reducedMotion={reducedMotion}/>
-          </section>
-
           <BlessingForm/>
           <RSVP/>
         </main>
@@ -333,6 +325,6 @@ export default function App() {
         </div>
         {showBlessing && <div className="wish-toast" role="status" onAnimationEnd={()=>setShowBlessing(false)}><Sparkles size={16}/>{blessings[blessing]}</div>}
       </div>}
-    {activePhoto >= 0 && <GalleryViewer photo={wedding.gallery[activePhoto]} index={activePhoto} total={wedding.gallery.length} onClose={closePhoto} onNext={nextPhoto} onPrevious={prevPhoto}/>}
+    {activePhoto >= 0 && <GalleryViewer photo={wedding.gallery[activePhoto]} index={activePhoto} total={wedding.gallery.length} onClose={closePhoto} onNext={nextPhoto} onPrevious={prevPhoto}/>
   </>;
 }
