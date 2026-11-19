@@ -52,169 +52,26 @@ function useReveal(enabled) {
   }, [enabled]);
 }
 
-function EnvelopeIntro({ onContinue, onSkip, reducedMotion }) {
-  const [opened, setOpened] = useState(false);
-  const [cardUp, setCardUp] = useState(false);
-  const [stage, setStage] = useState('sealed');
-  const openEnvelope = () => {
-    if (opened) return;
-    setOpened(true);
-    setStage('opening');
-    if (reducedMotion) {
-      setCardUp(true);
-      setStage('revealed');
-      return;
-    }
-    window.setTimeout(() => setCardUp(true), 700);
-    window.setTimeout(() => setStage('revealed'), 2350);
-  };
-  return <main className="envelope-intro" aria-label="Wedding invitation envelope">
+function EnvelopeIntro({ onContinue, reducedMotion }) {
+  useEffect(() => {
+    if (reducedMotion) { onContinue(); return; }
+    const timers = [
+      window.setTimeout(() => document.querySelector('.envelope-stage')?.classList.add('is-opening'), 650),
+      window.setTimeout(() => document.querySelector('.envelope-stage')?.classList.add('card-is-up'), 1500),
+      window.setTimeout(onContinue, 3100),
+    ];
+    return () => timers.forEach(window.clearTimeout);
+  }, [onContinue, reducedMotion]);
+  return <main className="envelope-intro auto-envelope-intro" aria-label="Wedding invitation opening automatically">
     <Petals muted={reducedMotion}/>
-    <button className="intro-skip" type="button" onClick={onSkip}>SKIP INTRO <ArrowUpRight size={14}/></button>
-    <div className="envelope-intro-copy">
-      <span className="intro-overline">A LITTLE SOMETHING, SEALED WITH LOVE</span>
-      <h1>A Special Invitation <em>For You</em></h1>
-      <p>Tap the golden seal to open your invitation</p>
-    </div>
-    <div className={`envelope-stage ${opened ? 'is-opening' : ''} ${cardUp ? 'card-is-up' : ''}`}>
-      <div className="envelope-glow"/>
-      <div className="invitation-paper">
-        <div className="paper-floral-corner top-left">✿</div><div className="paper-floral-corner top-right">❀</div>
-        <span className="paper-mantra">॥ श्री गणेशाय नमः ॥</span>
-        <span className="paper-caption">THE WEDDING CELEBRATION OF</span>
-        <strong>{wedding.groom.name}</strong><i className="paper-amp">&</i><strong>{wedding.bride.name}</strong>
-        <span className="paper-date">05 · 08 · 09 DECEMBER {wedding.eventYear}</span>
-        <span className="paper-venue">DARBHANGA · BIHAR</span>
-      </div>
-      <div className="envelope-body">
-        <div className="envelope-texture"/>
-        <div className="envelope-back-fold"/>
-        <div className="envelope-pocket-left"/>
-        <div className="envelope-pocket-right"/>
-        <div className="envelope-pocket-bottom"/>
-        <div className="envelope-flap"><span/></div>
-        <button className={`gold-wax-seal ${opened ? 'seal-broken' : ''}`} onClick={openEnvelope} type="button" aria-label="Break the golden wax seal and open invitation" disabled={opened}>
-          <span className="wax-edge"/><span className="wax-center"><Heart size={25} fill="currentColor" strokeWidth={1.2}/></span>
-        </button>
-      </div>
-    </div>
-    <div className="envelope-under-copy">
-      <span className="tiny-flourish">✦</span>
-      <span>{stage === 'revealed' ? 'YOUR INVITATION IS READY' : 'WITH LOVE, ASHISH & PUSHPANJALI'}</span>
-      <span className="tiny-flourish">✦</span>
-    </div>
-    {stage === 'revealed' && <button type="button" className="continue-invitation" onClick={onContinue}>OPEN THE INVITATION <ArrowDown size={15}/></button>}
+    <div className="envelope-intro-copy"><span className="intro-overline">A LITTLE SOMETHING, SEALED WITH LOVE</span><h1>A Special Invitation <em>For You</em></h1><p>Your invitation is opening</p></div>
+    <div className="envelope-stage"><div className="envelope-glow"/>
+      <div className="invitation-paper"><div className="paper-floral-corner top-left">✿</div><div className="paper-floral-corner top-right">❀</div><span className="paper-mantra">॥ श्री गणेशाय नमः ॥</span><span className="paper-caption">THE WEDDING CELEBRATION OF</span><strong>{wedding.groom.name}</strong><i className="paper-amp">&</i><strong>{wedding.bride.name}</strong><span className="paper-date">05 · 08 · 09 DECEMBER {wedding.eventYear}</span><span className="paper-venue">DARBHANGA · BIHAR</span></div>
+      <div className="envelope-body"><div className="envelope-texture"/><div className="envelope-back-fold"/><div className="envelope-pocket-left"/><div className="envelope-pocket-right"/><div className="envelope-pocket-bottom"/><div className="envelope-flap"><span/></div><div className="gold-wax-seal" aria-hidden="true"><span className="wax-edge"/><span className="wax-center"><Heart size={25} fill="currentColor" strokeWidth={1.2}/></span></div></div>
+    </div><div className="envelope-under-copy"><span className="tiny-flourish">✦</span><span>WITH LOVE, ASHISH & PUSHPANJALI</span><span className="tiny-flourish">✦</span></div>
   </main>;
 }
 
-function ScratchReveal({ onReveal, reducedMotion }) {
-  const canvasRef = useRef(null);
-  const drawRef = useRef({ drawing: false, previous: null, checked: false });
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    if (reducedMotion) {
-      setRevealed(true);
-      return;
-    }
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
-    if (!ctx) return;
-    const box = canvas.getBoundingClientRect();
-    const ratio = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.max(1, Math.round(box.width * ratio));
-    canvas.height = Math.max(1, Math.round(box.height * ratio));
-    ctx.scale(ratio, ratio);
-    const grad = ctx.createLinearGradient(0, 0, box.width, box.height);
-    grad.addColorStop(0, '#e7c89b');
-    grad.addColorStop(.45, '#bf9664');
-    grad.addColorStop(1, '#ead6b2');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, box.width, box.height);
-    ctx.strokeStyle = 'rgba(255,255,255,.36)';
-    ctx.lineWidth = 1.5;
-    for (let x = -box.height; x < box.width + box.height; x += 18) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + box.height, box.height); ctx.stroke();
-    }
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    const getPoint = event => {
-      const rect = canvas.getBoundingClientRect();
-      return { x: event.clientX - rect.left, y: event.clientY - rect.top };
-    };
-    const start = event => {
-      if (revealed) return;
-      event.preventDefault();
-      drawRef.current.drawing = true;
-      drawRef.current.previous = getPoint(event);
-      canvas.setPointerCapture?.(event.pointerId);
-      ctx.beginPath();
-      ctx.arc(drawRef.current.previous.x, drawRef.current.previous.y, 22, 0, Math.PI * 2);
-      ctx.fill();
-    };
-    const move = event => {
-      if (!drawRef.current.drawing || revealed) return;
-      const p = getPoint(event);
-      ctx.beginPath();
-      ctx.lineWidth = 48;
-      ctx.moveTo(drawRef.current.previous?.x ?? p.x, drawRef.current.previous?.y ?? p.y);
-      ctx.lineTo(p.x, p.y);
-      ctx.stroke();
-      drawRef.current.previous = p;
-      if (drawRef.current.checked) return;
-      drawRef.current.checked = true;
-      requestAnimationFrame(() => {
-        drawRef.current.checked = false;
-        try {
-          const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-          let clear = 0; let total = 0;
-          for (let i = 3; i < pixels.length; i += 64) { total++; if (pixels[i] < 24) clear++; }
-          if (total && clear / total > .34) setRevealed(true);
-        } catch { /* Canvas readback can be unavailable in hardened browsers. */ }
-      });
-    };
-    const stop = () => { drawRef.current.drawing = false; drawRef.current.previous = null; };
-    canvas.addEventListener('pointerdown', start);
-    canvas.addEventListener('pointermove', move);
-    canvas.addEventListener('pointerup', stop);
-    canvas.addEventListener('pointercancel', stop);
-    canvas.addEventListener('lostpointercapture', stop);
-    return () => {
-      canvas.removeEventListener('pointerdown', start);
-      canvas.removeEventListener('pointermove', move);
-      canvas.removeEventListener('pointerup', stop);
-      canvas.removeEventListener('pointercancel', stop);
-      canvas.removeEventListener('lostpointercapture', stop);
-    };
-  }, [reducedMotion, revealed]);
-
-  return <section className={`scratch-greeting ${revealed ? 'scratch-is-revealed' : ''}`} aria-label="Scratch to reveal a greeting">
-    <div className="scratch-heading">
-      <span className="section-eyebrow">A SMALL SURPRISE</span>
-      <h2>Scratch to Reveal <em>Our Love</em></h2>
-      <p>Gently rub the heart and discover a little message from us.</p>
-    </div>
-    <div className="scratch-heart-card">
-      <div className="scratch-underlay">
-        <span className="scratch-heart-icon">♡</span>
-        <strong>Save the Date!</strong>
-        <span>We can't wait to celebrate with you</span>
-        <small>ASHISH & PUSHPANJALI</small>
-      </div>
-      <svg className="heart-scratch-clip" viewBox="0 0 320 290" aria-hidden="true">
-        <defs><clipPath id="scratchHeartClip"><path d="M160 270 C135 247 22 174 22 92 C22 12 118 -10 160 58 C202 -10 298 12 298 92 C298 174 185 247 160 270Z"/></clipPath></defs>
-        <foreignObject x="0" y="0" width="320" height="290" clipPath="url(#scratchHeartClip)">
-          <canvas ref={canvasRef} className="scratch-canvas" aria-label="Scratch over the heart to reveal the message"/>
-        </foreignObject>
-      </svg>
-      <div className="scratch-label">SCRATCH HERE</div>
-    </div>
-    {!revealed ? <button className="scratch-tap" type="button" onClick={() => setRevealed(true)}>TAP TO REVEAL INSTEAD</button> :
-      <button className="scratch-continue" type="button" onClick={onReveal}>CONTINUE TO INVITATION <ArrowDown size={14}/></button>}
-  </section>;
-}
 
 function CountDown() {
   const target = useMemo(() => new Date(`${wedding.eventYear}-12-09T00:00:00+05:30`).getTime(), []);
@@ -384,10 +241,7 @@ function Footer() {
 
 export default function App() {
   const reducedMotion = useReducedMotion();
-  const [introDone, setIntroDone] = useState(() => {
-    try { return sessionStorage.getItem('ashish-pushpanjali-intro-v2') === 'done'; }
-    catch { return false; }
-  });
+  const [introDone, setIntroDone] = useState(false);
   const [sectionReady, setSectionReady] = useState(false);
   const [activePhoto, setActivePhoto] = useState(-1);
   const [showBlessing, setShowBlessing] = useState(false);
@@ -399,14 +253,7 @@ export default function App() {
 
   useReveal(sectionReady);
 
-  const finishIntro = () => {
-    try { sessionStorage.setItem('ashish-pushpanjali-intro-v2', 'done'); } catch { /* session storage disabled */ }
-    setIntroDone(true);
-    window.setTimeout(() => {
-      setSectionReady(true);
-      document.getElementById('home')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
-    }, 80);
-  };
+  const finishIntro = React.useCallback(() => { setIntroDone(true); setSectionReady(true); }, []);
   useEffect(() => {
     const update = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -429,7 +276,7 @@ export default function App() {
 
   return <>
     <audio ref={audio} src={wedding.backgroundMusic} loop preload="none" onPause={() => setMusicOn(false)} onPlay={() => setMusicOn(true)}/>
-    {!introDone ? <EnvelopeIntro onContinue={finishIntro} onSkip={finishIntro} reducedMotion={reducedMotion}/> :
+    {!introDone ? <EnvelopeIntro onContinue={finishIntro} reducedMotion={reducedMotion}/> :
       <div className="invite-website"><div className="page-progress" style={{ transform: `scaleX(${scrollPct})` }}/>
         <main>
           <section className="invite-hero" id="home">
