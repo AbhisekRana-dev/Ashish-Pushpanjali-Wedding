@@ -246,7 +246,9 @@ function FamilyBlessings() {
       <article className="family-blessing-card bride-family" data-reveal>
         <span className="family-card-kicker">OUR BELOVED DAUGHTER</span>
         <span className="family-card-flower" aria-hidden="true">✿</span>
-        <div className="family-profile-portrait portrait-bride" role="img" aria-label={wedding.bride.photoAlt}/>
+        <div className="family-profile-portrait portrait-bride">
+          <img src={wedding.bride.photo} alt={wedding.bride.photoAlt} loading="lazy" decoding="async" onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/>
+        </div>
         <h3>{wedding.bride.name}</h3>
         <p className="family-card-hindi">{wedding.bride.hindi}</p>
         <div className="family-divider">✧</div>
@@ -263,7 +265,9 @@ function FamilyBlessings() {
       <article className="family-blessing-card groom-family" data-reveal>
         <span className="family-card-kicker">THE GROOM & HIS FAMILY</span>
         <span className="family-card-flower" aria-hidden="true">✿</span>
-        <div className="family-profile-portrait portrait-groom" role="img" aria-label={wedding.groom.photoAlt}/>
+        <div className="family-profile-portrait portrait-groom">
+          <img src={wedding.groom.photo} alt={wedding.groom.photoAlt} loading="lazy" decoding="async" onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/>
+        </div>
         <h3>{wedding.groom.name}</h3>
         <p className="family-card-hindi">{wedding.groom.hindi}</p>
         <div className="family-divider">✧</div>
@@ -486,7 +490,7 @@ export default function App() {
     engine.context.resume().then(() => {
       const now = engine.context.currentTime;
       engine.master.gain.cancelScheduledValues(now);
-      engine.master.gain.setTargetAtTime(0.22, now, 1.6);
+      engine.master.gain.setTargetAtTime(0.34, now, 1.25);
       setMusicOn(true);
     }).catch(() => setMusicOn(false));
   }, []);
@@ -531,9 +535,9 @@ export default function App() {
               <p className="hero-hindi-names">{wedding.bride.hindi} ♥ {wedding.groom.hindi}</p>
               <div className="hero-date-chip">05 · 08 · 09 <small>DECEMBER {wedding.eventYear}</small></div>
               <div className="hero-photo-pair">
-                <figure><img src={wedding.bride.photo} alt={wedding.bride.photoAlt} style={{ objectPosition: '94% 38%', transform: 'scale(2.3)' }} onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/></figure>
+                <figure><img src={wedding.bride.photo} alt={wedding.bride.photoAlt} loading="eager" decoding="async" onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/><figcaption>THE BRIDE</figcaption></figure>
                 <span className="pair-heart">♥</span>
-                <figure><img src={wedding.groom.photo} alt={wedding.groom.photoAlt} style={{ objectPosition: '13% 38%', transform: 'scale(2.3)' }} onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/></figure>
+                <figure><img src={wedding.groom.photo} alt={wedding.groom.photoAlt} loading="eager" decoding="async" onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/><figcaption>THE GROOM</figcaption></figure>
               </div>
               <p className="hero-verse">With joy and pride, we invite you to celebrate our beloved daughter, Pushpanjali, as she begins a beautiful new journey with Ashish.<br/>आप सपरिवार पधारकर नवदंपति को अपना आशीर्वाद दें।</p>
             </div>
