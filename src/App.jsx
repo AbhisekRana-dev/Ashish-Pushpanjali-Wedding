@@ -324,36 +324,43 @@ function Venue() {
 }
 
 function RSVP() {
-  const [form, setForm] = useState({ name: '', attendance: 'Joyfully attending', guests: '', mobile: '', message: '' });
-  const [done, setDone] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const change = key => event => setForm(current => ({ ...current, [key]: event.target.value }));
-  const submit = event => {
-    event.preventDefault();
-    if (!form.name.trim() || (form.attendance === 'Joyfully attending' && !form.guests) || (form.mobile && !/^[0-9+() -]{7,18}$/.test(form.mobile))) return;
-    setDone(true);
-  };
-  const copy = async () => {
-    const text = [
-      'Wedding RSVP', `Name: ${form.name}`, `Mobile: ${form.mobile || 'Not provided'}`, `Attendance: ${form.attendance}`,
-      `Guests: ${form.attendance === "Sorry, can't make it" ? '0' : (form.guests || 'Not confirmed')}`, `Message: ${form.message || '—'}`,
-    ].join('\n');
-    try { await navigator.clipboard.writeText(text); setCopied(true); } catch { setCopied(false); }
-  };
-  return <section className="rsvp-invitation" id="rsvp">
-    <span className="section-eyebrow">A REPLY WOULD MEAN THE WORLD</span>
-    <h2>Will You <em>Join Us?</em></h2>
-    <p>We would be honoured to have you join our daughter Pushpanjali and Ashish for their wedding celebrations.</p>
-    {done ? <div className="rsvp-confirmation" role="status"><Check size={24}/><h3>Thank you, {form.name}!</h3><p>Your response is ready to share with the family.</p><button type="button" onClick={copy}><Copy size={14}/>{copied ? 'COPIED' : 'COPY RSVP DETAILS'}</button><button type="button" className="edit-rsvp" onClick={() => setDone(false)}>EDIT RESPONSE</button></div> :
-      <form className="rsvp-invitation-form" onSubmit={submit}>
-        <label>YOUR NAME<input value={form.name} onChange={change('name')} placeholder="Your full name" maxLength={100} required/></label>
-        <label>MOBILE NUMBER <span className="optional">(OPTIONAL)</span><input value={form.mobile} onChange={change('mobile')} inputMode="tel" placeholder="Your mobile number" maxLength={18}/></label>
-        <label>WILL YOU ATTEND?<select value={form.attendance} onChange={change('attendance')}><option>Joyfully attending</option><option>Sorry, can't make it</option><option>Maybe</option></select></label>
-        <label>NUMBER OF GUESTS<select value={form.guests} onChange={change('guests')} disabled={form.attendance === "Sorry, can't make it"} required={form.attendance === 'Joyfully attending'}><option value="" disabled>Select guest count</option>{[1,2,3,4,5].map(n=><option key={n} value={String(n)}>{n} {n===1?'guest':'guests'}</option>)}<option value="6+">6+ guests</option></select></label>
-        <label>A NOTE FOR THE COUPLE <textarea value={form.message} onChange={change('message')} rows={3} maxLength={500} placeholder="Your wishes and blessings..."/></label>
-        <button className="rsvp-submit" type="submit">SEND YOUR RSVP <ArrowUpRight size={15}/></button>
-        <small>This invitation preview prepares a shareable RSVP; it does not submit to a guest database.</small>
-      </form>}
+  const eventSymbols = { 'MATKOR PUJA': '🌿', 'HALDI & MEHNDI': '🥣', WEDDING: '🔥' };
+  return <section className="rsvp-invitation closing-invitation" id="rsvp" aria-label="Wedding invitation from the bride's family">
+    <div className="closing-floral-corners" aria-hidden="true">
+      <span className="closing-floral closing-floral-left">✿ ❀ 🌹</span>
+      <span className="closing-floral closing-floral-right">🌹 ❀ ✿</span>
+      <span className="closing-lantern closing-lantern-left">✧</span>
+      <span className="closing-lantern closing-lantern-right">✧</span>
+    </div>
+    <div className="closing-invitation-content">
+      <div className="closing-top-ornament" aria-hidden="true">✧　✿　❀　✿　✧</div>
+      <span className="closing-invitation-eyebrow">YOU ARE CORDIALLY INVITED</span>
+      <h2>Your Presence Is Our <em>Greatest Gift</em></h2>
+      <div className="closing-heart-flourish" aria-hidden="true">─────── ♡ ───────</div>
+      <p className="closing-invitation-message">
+        We warmly invite you to celebrate the wedding of our beloved daughter
+        <strong> {wedding.bride.name.split(' ')[0]} </strong>with
+        <strong> {wedding.groom.name.split(' ')[0]}.</strong>
+      </p>
+      <div className="closing-event-frame">
+        <div className="closing-event-grid">
+          {wedding.events.map(event => {
+            const title = event.name === 'WEDDING' ? 'WEDDING MUHURAT' : event.name;
+            const date = new Date(`${event.isoDate}T12:00:00`).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+            return <article className="closing-event-card" key={event.number}>
+              <span className="closing-event-symbol" aria-hidden="true">{eventSymbols[event.name] || '✿'}</span>
+              <h3>{title}</h3>
+              <p><CalendarDays size={16}/>{date}</p>
+            </article>;
+          })}
+        </div>
+      </div>
+      <div className="closing-location"><MapPin size={22}/><span>Darbhanga, Bihar</span></div>
+      <div className="closing-procession" aria-hidden="true">────── ✧　❀　✧ ──────</div>
+      <p className="closing-blessing">With Love &amp; Blessings,</p>
+      <div className="closing-family-name">The Family of {wedding.bride.name.split(' ').map(n => n[0] + n.slice(1).toLowerCase()).join(' ')}</div>
+      <p className="closing-invitation-hindi">सादर आमंत्रण एवं हार्दिक स्वागत</p>
+    </div>
   </section>;
 }
 
