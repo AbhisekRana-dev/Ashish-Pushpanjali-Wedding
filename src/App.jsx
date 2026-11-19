@@ -325,6 +325,6 @@ export default function App() {
         </div>
         {showBlessing && <div className="wish-toast" role="status" onAnimationEnd={()=>setShowBlessing(false)}><Sparkles size={16}/>{blessings[blessing]}</div>}
       </div>
-    {activePhoto >= 0 && <GalleryViewer photo={wedding.gallery[activePhoto]} index={activePhoto} total={wedding.gallery.length} onClose={closePhoto} onNext={nextPhoto} onPrevious={prevPhoto}/>
+    {activePhoto >= 0 && <GalleryViewer photo={wedding.gallery[activePhoto]} index={activePhoto} total={wedding.gallery.length} onClose={closePhoto} onNext={nextPhoto} onPrevious={prevPhoto}/>}
   </>;
 }
