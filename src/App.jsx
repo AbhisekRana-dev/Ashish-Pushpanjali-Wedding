@@ -58,13 +58,15 @@ function useReveal(enabled) {
 }
 
 
-function EnvelopeOpening({ onReveal }) {
+function EnvelopeOpening({ onReveal, onStartMusic }) {
   const reducedMotion = useReducedMotion();
   const [opened, setOpened] = useState(false);
   const [cardUp, setCardUp] = useState(false);
 
   const openEnvelope = () => {
-    if (!opened) setOpened(true);
+    if (opened) return;
+    setOpened(true);
+    onStartMusic?.();
   };
 
   useEffect(() => {
@@ -174,8 +176,14 @@ function EventCard({ event }) {
     const link = document.createElement('a'); link.href = url; link.download = `${event.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.ics`; link.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 1500);
   };
-  return <article className="event-detail-card" data-reveal>
-    <div className="event-card-number">{event.number}</div>
+  return <article className={`event-detail-card event-${event.theme}`} data-reveal>
+    <div className="event-card-visual">
+      <img src={event.image} alt={event.imageAlt} loading="lazy" onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/images/wedding-placeholder.svg'; }}/>
+      <span className="event-visual-shade"/>
+      <span className="event-card-number">{event.number}</span>
+      <span className="event-card-date-hindi">{event.dateHindi}</span>
+      <span className="event-card-deco">{event.icon}</span>
+    </div>
     <div className="event-card-copy">
       <span className="event-date-label"><CalendarDays size={14}/> {event.date} · {wedding.eventYear}</span>
       <h3>{event.name}</h3>
@@ -183,8 +191,29 @@ function EventCard({ event }) {
       <div className="event-place"><MapPin size={15}/><span>{event.venue}</span></div>
       <div className="event-card-actions"><a href={mapsUrl} target="_blank" rel="noreferrer">DIRECTIONS <ArrowUpRight size={13}/></a><button type="button" onClick={addCalendar}>ADD TO CALENDAR <CalendarDays size={13}/></button></div>
     </div>
-    <div className="event-card-flower" aria-hidden="true">{event.icon}</div>
   </article>;
+}
+
+function FamilyBlessings() {
+  return <section className="family-blessings-section" aria-label="Family details">
+    <SectionHeading eyebrow="WITH THE BLESSINGS OF OUR ELDERS" title="Two Families" accent="One Celebration"/>
+    <div className="family-blessing-grid">
+      <article className="family-blessing-card groom-family" data-reveal>
+        <span className="family-card-flower">❀</span><span className="family-card-kicker">GROOM'S FAMILY</span>
+        <h3>{wedding.groom.name}</h3><p className="family-card-hindi">{wedding.groom.hindi}</p>
+        <div className="family-divider">✦</div>
+        <p>{wedding.groom.father}</p><p className="family-card-hindi">{wedding.groom.fatherHindi}</p>
+        <p>{wedding.groom.mother}</p><p className="family-card-hindi">{wedding.groom.motherHindi}</p>
+      </article>
+      <article className="family-blessing-card bride-family" data-reveal>
+        <span className="family-card-flower">✿</span><span className="family-card-kicker">BRIDE'S FAMILY</span>
+        <h3>{wedding.bride.name}</h3><p className="family-card-hindi">{wedding.bride.hindi}</p>
+        <div className="family-divider">✦</div>
+        <p>{wedding.bride.father}</p><p className="family-card-hindi">{wedding.bride.fatherHindi}</p>
+        <p>{wedding.bride.mother}</p><p className="family-card-hindi">{wedding.bride.motherHindi}</p>
+      </article>
+    </div>
+  </section>;
 }
 
 function Gallery({ onOpen }) {
@@ -324,6 +353,12 @@ export default function App() {
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
   }, []);
+  const startMusic = React.useCallback(() => {
+    if (!audio.current) return;
+    audio.current.volume = 0.34;
+    const playback = audio.current.play();
+    if (playback?.then) playback.then(() => setMusicOn(true)).catch(() => setMusicOn(false));
+  }, []);
   const toggleMusic = async () => {
     if (!audio.current) return;
     if (musicOn) { audio.current.pause(); setMusicOn(false); return; }
@@ -338,7 +373,7 @@ export default function App() {
     <audio ref={audio} src={wedding.backgroundMusic} loop preload="none" onPause={() => setMusicOn(false)} onPlay={() => setMusicOn(true)}/>
     <div className="invite-website"><div className="page-progress" style={{ transform: `scaleX(${scrollPct})` }}/>
         <main>
-          <EnvelopeOpening onReveal={revealWebsite}/>
+          <EnvelopeOpening onReveal={revealWebsite} onStartMusic={startMusic}/>
           {envelopeRevealed && <>
           <section className="invite-hero" id="home">
             <Petals muted={reducedMotion}/>
@@ -349,7 +384,7 @@ export default function App() {
               <p className="hero-hindi-names">{wedding.groom.hindi} ♥ {wedding.bride.hindi}</p>
               <div className="hero-date-chip">05 · 08 · 09 <small>DECEMBER {wedding.eventYear}</small></div>
               <div className="hero-photo-pair">
-                <figure><img src={wedding.groom.photo} alt={wedding.groom.photoAlt} onError={e=>e.currentTarget.style.opacity='0'}/><figcaption>THE GROOM</figcaption></figure>
+                <figure><img src={wedding.groom.photo} alt={wedding.groom.photoAlt} onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/><figcaption>THE GROOM</figcaption></figure>
                 <span className="pair-heart">♥</span>
                 <figure><img src={wedding.bride.photo} alt={wedding.bride.photoAlt} onError={e=>e.currentTarget.style.opacity='0'}/><figcaption>THE BRIDE</figcaption></figure>
               </div>
@@ -370,6 +405,8 @@ export default function App() {
             </div>
           </section>
 
+          <FamilyBlessings/>
+
           <section className="invite-section event-section" id="events">
             <SectionHeading eyebrow="PLEASE JOIN US" title="Wedding" accent="Celebrations"/>
             <div className="event-card-list">{wedding.events.map(event=><EventCard key={event.number} event={event}/>)}</div>
@@ -386,10 +423,13 @@ export default function App() {
         </main>
         {envelopeRevealed && <>
         <Footer/>
-        <div className="float-actions">
-          <button type="button" className={`music-action ${musicOn ? 'active' : ''}`} onClick={toggleMusic} aria-label={musicOn ? 'Pause music' : 'Play music'}>{musicOn ? <Pause size={17}/> : <Play size={17}/>}<span>{musicOn ? 'MUSIC ON' : 'MUSIC'}</span></button>
-          {showTop && <button type="button" className="top-action" aria-label="Back to top" onClick={()=>window.scrollTo({top:0,behavior:reducedMotion?'auto':'smooth'})}><ArrowUpRight size={17}/></button>}
-        </div>
+        <nav className="mobile-quick-dock" aria-label="Wedding quick navigation">
+          <a href="#events"><CalendarDays size={18}/><span>EVENTS</span></a>
+          <a href="#gallery"><Flower2 size={18}/><span>GALLERY</span></a>
+          <button type="button" className="dock-music" onClick={toggleMusic} aria-label={musicOn ? "Pause Ganpati Vandana" : "Play Ganpati Vandana"}>{musicOn ? <Pause size={18}/> : <Music2 size={18}/>}<span>{musicOn ? 'PLAYING' : 'BHAJAN'}</span></button>
+          <a href="#rsvp"><Heart size={18}/><span>RSVP</span></a>
+        </nav>
+        {showTop && <button type="button" className="top-action" aria-label="Back to top" onClick={()=>window.scrollTo({top:0,behavior:reducedMotion?'auto':'smooth'})}><ArrowUpRight size={17}/></button>}
         {showBlessing && <div className="wish-toast" role="status" onAnimationEnd={()=>setShowBlessing(false)}><Sparkles size={16}/>{blessings[blessing]}</div>}
         </>}
       </div>
