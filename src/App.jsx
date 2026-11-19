@@ -220,6 +220,9 @@ function InvitationShowcase() {
     <figure className="editorial-preview editorial-preview-photo" data-reveal>
       <a className="editorial-couple-photo-link" href={wedding.invitationCardImage} target="_blank" rel="noreferrer" aria-label="Open the full wedding invitation card">
         <img className="editorial-couple-photo" src={wedding.invitationCardImage} alt="Wedding invitation for Pushpanjali Kumari and Ashish Kumar Gupta, with their wedding dates and Darbhanga location" loading="lazy"/>
+        <span className="editorial-card-name-reorder" aria-hidden="true">
+          <strong>{wedding.bride.name}</strong><i>&</i><strong>{wedding.groom.name}</strong>
+        </span>
         <span className="editorial-preview-open">OPEN INVITATION <ArrowUpRight size={14}/></span>
       </a>
       <figcaption><span>॥ श्री गणेशाय नमः ॥</span><small>WITH LOVE FROM PUSHPANJALI'S FAMILY</small></figcaption>
