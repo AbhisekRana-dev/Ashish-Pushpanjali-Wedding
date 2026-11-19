@@ -18,6 +18,22 @@ function Petals({ muted = false }) {
   </div>;
 }
 
+const butterflyFlights = [
+  { left: '5%', top: '20%', delay: '-5s', duration: '28s', size: '22px' },
+  { left: '28%', top: '68%', delay: '-17s', duration: '32s', size: '25px' },
+  { left: '48%', top: '30%', delay: '-11s', duration: '25s', size: '19px' },
+  { left: '68%', top: '78%', delay: '-22s', duration: '34s', size: '24px' },
+  { left: '88%', top: '42%', delay: '-8s', duration: '29s', size: '20px' },
+];
+function ButterflyFlight({ muted = false }) {
+  if (muted) return null;
+  return <div className="butterfly-flight" aria-hidden="true">
+    {butterflyFlights.map((butterfly, i) => <span key={i} className={`flying-butterfly butterfly-${i + 1}`} style={{
+      '--flight-left': butterfly.left, '--flight-top': butterfly.top,
+      '--flight-delay': butterfly.delay, '--flight-duration': butterfly.duration, '--flight-size': butterfly.size,
+    }}>🦋</span>)}
+  </div>;
+}
 
 function useReducedMotion() {
   const [reduced, setReduced] = useState(false);
@@ -199,14 +215,14 @@ function FamilyBlessings() {
     <SectionHeading eyebrow="WITH THE BLESSINGS OF OUR ELDERS" title="Two Families" accent="One Celebration"/>
     <div className="family-blessing-grid">
       <article className="family-blessing-card groom-family" data-reveal>
-        <span className="family-card-flower">❀</span><span className="family-card-kicker">GROOM'S FAMILY</span>
+        <div className="family-profile-portrait groom-portrait"><span>{wedding.groom.name.charAt(0)}</span><small>THE GROOM</small></div><span className="family-card-flower">❀</span><span className="family-card-kicker">GROOM'S FAMILY</span>
         <h3>{wedding.groom.name}</h3><p className="family-card-hindi">{wedding.groom.hindi}</p>
         <div className="family-divider">✦</div>
         <p>{wedding.groom.father}</p><p className="family-card-hindi">{wedding.groom.fatherHindi}</p>
         <p>{wedding.groom.mother}</p><p className="family-card-hindi">{wedding.groom.motherHindi}</p>
       </article>
       <article className="family-blessing-card bride-family" data-reveal>
-        <span className="family-card-flower">✿</span><span className="family-card-kicker">BRIDE'S FAMILY</span>
+        <div className="family-profile-portrait bride-portrait"><span>{wedding.bride.name.charAt(0)}</span><small>THE BRIDE</small></div><span className="family-card-flower">✿</span><span className="family-card-kicker">BRIDE'S FAMILY</span>
         <h3>{wedding.bride.name}</h3><p className="family-card-hindi">{wedding.bride.hindi}</p>
         <div className="family-divider">✦</div>
         <p>{wedding.bride.father}</p><p className="family-card-hindi">{wedding.bride.fatherHindi}</p>
@@ -374,7 +390,7 @@ export default function App() {
 
   return <>
 
-    <div className="invite-website"><div className="page-progress" style={{ transform: `scaleX(${scrollPct})` }}/>
+    <div className="invite-website"><div className="page-progress" style={{ transform: `scaleX(${scrollPct})` }}/><ButterflyFlight muted={reducedMotion}/>
         <main>
           <EnvelopeOpening onReveal={revealWebsite} onStartMusic={startMusic}/>
           {envelopeRevealed && <>
@@ -396,26 +412,26 @@ export default function App() {
             <span className="scroll-invite" aria-hidden="true">SCROLL TO EXPLORE <ChevronDown size={15}/></span>
           </section>
 
-          <section className="wedding-song-section" id="music" aria-label="Wedding devotional song">
+          <section className="wedding-song-section" id="music" aria-label="Ganesh Vandana instrumental music">
             <div className="wedding-song-card" data-reveal>
-              <span className="wedding-song-ornament">॥ श्री सीतारामचन्द्राभ्यां नमः ॥</span>
-              <span className="section-eyebrow">A DIVINE WEDDING MELODY</span>
-              <h2>सीता राम <em>विवाह गीत</em></h2>
-              <p className="wedding-song-subtitle">A devotional celebration of the sacred wedding of Siya and Ram</p>
+              <span className="wedding-song-ornament">॥ ॐ गं गणपतये नमः ॥</span>
+              <span className="section-eyebrow">A SACRED BEGINNING</span>
+              <h2>श्री गणेश <em>वंदना</em></h2>
+              <p className="wedding-song-subtitle">A peaceful flute instrumental inspired by Ganesh Vandana — a gentle blessing to begin the wedding celebrations</p>
               <div className="wedding-song-player">
                 <iframe
                   ref={musicPlayer}
-                  title="Sita Ram Vivah Geet — Suresh Wadkar, Shemaroo Bhakti"
+                  title="Divine Om Gan Ganapataye Flute Instrumental — Flutewala Music"
                   src={wedding.backgroundMusic + "?autoplay=1&controls=1&enablejsapi=1&playsinline=1&rel=0&origin=" + encodeURIComponent(window.location.origin)}
                   allow="autoplay; encrypted-media; picture-in-picture"
                   allowFullScreen
                   onLoad={handleMusicPlayerLoad}
                 />
               </div>
-              <p className="wedding-song-credit">गीत: सीता राम विवाह गीत · स्वर: सुरेश वाडकर · Shemaroo Bhakti</p>
+              <p className="wedding-song-credit">ॐ गं गणपतये नमः · Divine Om Gan Ganapataye · Flute instrumental by Flutewala Music</p>
               <button type="button" className="wedding-song-toggle" onClick={toggleMusic}>
                 {musicOn ? <Pause size={17}/> : <Play size={17}/>}
-                {musicOn ? 'PAUSE BHAJAN' : 'PLAY BHAJAN'}
+                {musicOn ? 'PAUSE VANDANA' : 'PLAY VANDANA'}
               </button>
             </div>
           </section>
@@ -453,7 +469,7 @@ export default function App() {
         <nav className="mobile-quick-dock" aria-label="Wedding quick navigation">
           <a href="#events"><CalendarDays size={18}/><span>EVENTS</span></a>
           <a href="#gallery"><Flower2 size={18}/><span>GALLERY</span></a>
-          <button type="button" className="dock-music" onClick={toggleMusic} aria-label={musicOn ? "Pause Ganpati Vandana" : "Play Ganpati Vandana"}>{musicOn ? <Pause size={18}/> : <Music2 size={18}/>}<span>{musicOn ? 'PLAYING' : 'BHAJAN'}</span></button>
+          <button type="button" className="dock-music" onClick={toggleMusic} aria-label={musicOn ? "Pause Ganesh Vandana instrumental" : "Play Ganesh Vandana instrumental"}>{musicOn ? <Pause size={18}/> : <Music2 size={18}/>}<span>{musicOn ? 'PLAYING' : 'VANDANA'}</span></button>
           <a href="#rsvp"><Heart size={18}/><span>RSVP</span></a>
         </nav>
         {showTop && <button type="button" className="top-action" aria-label="Back to top" onClick={()=>window.scrollTo({top:0,behavior:reducedMotion?'auto':'smooth'})}><ArrowUpRight size={17}/></button>}
