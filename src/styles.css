@@ -1639,3 +1639,304 @@ nav.mobile-quick-dock,
 @media(prefers-reduced-motion:reduce){
   .closing-lantern{animation:none}
 }
+
+
+/* Two-stage opening: first the sealed cover, then the revealed invitation card. */
+.envelope-scroll-section{
+  min-height:100svh;
+  height:auto;
+  max-height:none;
+  padding:clamp(42px,6vh,66px) 18px 30px;
+  justify-content:center;
+  background:
+    radial-gradient(ellipse at 50% 38%,rgba(255,249,239,.98) 0%,rgba(255,231,220,.72) 34%,transparent 64%),
+    radial-gradient(ellipse at 0% 0%,rgba(255,181,195,.54),transparent 33%),
+    radial-gradient(ellipse at 100% 0%,rgba(248,191,204,.52),transparent 36%),
+    linear-gradient(145deg,#fff0e7 0%,#ffe2e3 49%,#fff3e6 100%);
+}
+.envelope-scroll-section:before{
+  inset:12px;
+  border:1px solid rgba(210,155,91,.45);
+  box-shadow:inset 0 0 0 5px rgba(255,255,255,.24);
+}
+.envelope-scroll-section:after{
+  inset:20px;
+  border:1px solid rgba(186,91,105,.15);
+}
+.envelope-scroll-section .envelope-intro-copy{
+  width:min(900px,94vw);
+  margin:0 0 clamp(14px,2vh,23px);
+  padding:0 12px;
+}
+.envelope-scroll-section .intro-overline{
+  padding:10px 20px;
+  border-color:rgba(190,124,59,.52);
+  color:#741d37;
+  background:linear-gradient(110deg,rgba(255,251,239,.96),rgba(255,239,230,.92));
+  font-size:clamp(8px,.85vw,11px);
+  letter-spacing:.2em;
+}
+.envelope-scroll-section .envelope-intro-copy h1{
+  margin:16px auto 8px;
+  color:#641226;
+  font-size:clamp(42px,6.3vw,78px);
+  line-height:.98;
+  letter-spacing:-.035em;
+  text-shadow:0 2px 0 rgba(255,255,255,.65),0 9px 25px rgba(104,24,49,.08);
+}
+.envelope-scroll-section .envelope-intro-copy h1 em{
+  display:block;
+  margin-top:7px;
+  color:#e54f7a;
+  background:none;
+  -webkit-text-fill-color:currentColor;
+  font-size:1.02em;
+  font-style:italic;
+}
+.envelope-scroll-section .envelope-intro-copy p{
+  max-width:680px;
+  margin:13px auto 0;
+  color:#6f273c;
+  font-size:clamp(15px,1.55vw,21px);
+  line-height:1.42;
+}
+.envelope-scroll-section .envelope-stage{
+  width:min(740px,91vw);
+  height:clamp(330px,39vw,465px);
+  margin:0 auto;
+  filter:drop-shadow(0 24px 28px rgba(91,20,52,.2));
+}
+.envelope-scroll-section .envelope-body{
+  height:74%;
+  border:1px solid rgba(255,225,166,.95);
+  background:linear-gradient(145deg,#a81e51 0%,#741238 56%,#4f0d2b 100%);
+  box-shadow:0 28px 50px rgba(76,13,42,.28),inset 0 1px 0 rgba(255,255,255,.62),inset 0 -14px 26px rgba(42,4,24,.22);
+}
+.envelope-scroll-section .envelope-back-fold{
+  background:linear-gradient(145deg,#7c123b,#4b0c29);
+}
+.envelope-scroll-section .envelope-pocket-left{
+  background:linear-gradient(28deg,#650d31,#ae1d50 92%);
+}
+.envelope-scroll-section .envelope-pocket-right{
+  background:linear-gradient(330deg,#610d31,#a51d50 92%);
+}
+.envelope-scroll-section .envelope-pocket-bottom{
+  background:linear-gradient(0deg,#4c0b28 0%,#7e123c 57%,#be2c60 100%);
+}
+.envelope-scroll-section .envelope-flap:before{
+  background:linear-gradient(135deg,#f7c1b8 0%,#bd2a60 42%,#700f38 100%);
+  border:1px solid #f1c66e;
+}
+.envelope-scroll-section .invitation-paper{
+  left:7%;
+  width:86%;
+  height:91%;
+  padding:clamp(16px,2.4vw,28px);
+  background:linear-gradient(145deg,#fffaf0,#ffe9dc 60%,#fff5e9);
+  border:2px solid #d7a54b;
+  color:#6b1630;
+  box-shadow:0 12px 34px rgba(68,12,36,.2),inset 0 0 0 6px rgba(255,255,255,.7);
+}
+.envelope-scroll-section .invitation-paper strong{
+  color:#70132f;
+  font-size:clamp(18px,3vw,30px);
+}
+.envelope-scroll-section .paper-mantra{font-size:clamp(15px,1.7vw,21px);color:#9f4d36}
+.envelope-scroll-section .paper-caption{font-size:clamp(7px,.8vw,10px);letter-spacing:.2em}
+.envelope-scroll-section .paper-amp{font-size:clamp(20px,2vw,26px)}
+.envelope-scroll-section .paper-date,
+.envelope-scroll-section .paper-venue{font-size:clamp(8px,.8vw,10px)}
+.envelope-scroll-section .gold-wax-seal{
+  width:clamp(68px,8vw,94px);
+  height:clamp(68px,8vw,94px);
+  background:radial-gradient(circle at 30% 24%,#fff5cb 0%,#e6b64f 36%,#a96724 100%);
+  color:#8d1b42;
+}
+.envelope-scroll-section .envelope-under-copy{
+  margin-top:14px;
+  padding:10px 19px;
+  border:1px solid rgba(202,140,67,.55);
+  background:rgba(255,250,238,.78);
+  color:#751a3b;
+  font-size:clamp(7px,.82vw,10px);
+  letter-spacing:.18em;
+}
+.envelope-scroll-section .tiny-flourish{color:#cb8a31}
+.intro-tap-cue{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:15px;
+  width:min(390px,72vw);
+  margin:10px auto 0;
+  color:#74172f;
+}
+.intro-tap-cue span{height:2px;flex:1;background:linear-gradient(90deg,transparent,#c48c3d)}
+.intro-tap-cue span:last-child{background:linear-gradient(90deg,#c48c3d,transparent)}
+.intro-tap-cue svg{filter:drop-shadow(0 2px 1px rgba(96,29,45,.12))}
+.intro-corner-florals{
+  position:absolute;
+  z-index:1;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+.intro-flower-cluster{
+  position:absolute;
+  top:-13px;
+  width:min(260px,28vw);
+  color:#c02255;
+  font-size:clamp(38px,5.3vw,68px);
+  line-height:1.05;
+  letter-spacing:-.14em;
+  filter:drop-shadow(0 5px 5px rgba(110,25,55,.2));
+}
+.intro-flower-cluster i{
+  display:block;
+  margin-top:-12px;
+  color:#4c8753;
+  font-size:.56em;
+  font-style:normal;
+  letter-spacing:.02em;
+}
+.cluster-left{left:-19px;text-align:left;transform:rotate(-10deg)}
+.cluster-right{right:-19px;text-align:right;transform:rotate(10deg)}
+.intro-side-blooms{
+  position:absolute;
+  bottom:7%;
+  color:#cf4d71;
+  font-size:clamp(42px,5vw,70px);
+  filter:drop-shadow(0 5px 5px rgba(110,25,55,.15));
+}
+.intro-side-blooms i{display:block;margin-top:-30px;color:#57884d;font-size:.55em;font-style:normal}
+.bloom-left{left:2%}.bloom-right{right:2%}
+.intro-hanging-lantern{
+  position:absolute;
+  z-index:1;
+  top:18%;
+  width:42px;
+  height:118px;
+  pointer-events:none;
+  opacity:.94;
+  filter:drop-shadow(0 7px 10px rgba(101,48,25,.2));
+}
+.intro-hanging-lantern i{
+  position:absolute;
+  left:50%;
+  top:-52px;
+  height:53px;
+  border-left:2px solid #bd8640;
+}
+.intro-hanging-lantern:before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:0;
+  width:34px;
+  height:10px;
+  transform:translateX(-50%);
+  border:2px solid #b87931;
+  border-bottom:0;
+  border-radius:50% 50% 0 0;
+}
+.intro-hanging-lantern:after{
+  content:"";
+  position:absolute;
+  top:10px;
+  left:4px;
+  width:34px;
+  height:78px;
+  border:2px solid #b87931;
+  border-radius:9px 9px 14px 14px;
+  background:linear-gradient(90deg,rgba(166,94,35,.28),rgba(255,225,150,.82) 44%,rgba(174,98,31,.3));
+  box-shadow:inset 0 0 0 4px rgba(255,239,190,.7),0 0 24px rgba(255,180,66,.4);
+}
+.intro-hanging-lantern span{
+  position:absolute;
+  left:50%;
+  top:31px;
+  transform:translateX(-50%);
+  z-index:1;
+  color:#fff1b6;
+  font-size:19px;
+  text-shadow:0 0 12px #ffb949,0 0 22px #ffb949;
+}
+.lantern-left{left:5%}.lantern-right{right:5%}
+.envelope-scroll-section.envelope-is-open .envelope-intro-copy p{max-width:720px}
+.envelope-scroll-section.envelope-is-open .intro-tap-cue{display:none}
+.envelope-scroll-section.envelope-is-open .envelope-stage .invitation-paper{
+  transform:translateY(-33%);
+  z-index:8;
+}
+.envelope-scroll-section.envelope-is-open .paper-date,
+.envelope-scroll-section.envelope-is-open .paper-venue{display:none}
+.envelope-scroll-section.envelope-is-open .envelope-scroll-hint{display:none}
+.envelope-scroll-section .envelope-stage.card-is-up .invitation-paper{transform:translateY(-33%)}
+.continue-invitation.intro-enter-button{
+  position:relative;
+  z-index:12;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  min-width:min(360px,86vw);
+  margin-top:12px;
+  padding:15px 24px;
+  border:2px solid #e3bd67;
+  border-radius:999px;
+  color:#fff8e9;
+  background:linear-gradient(100deg,#741334,#a7194c 54%,#741334);
+  box-shadow:0 10px 24px rgba(81,12,39,.25),inset 0 1px rgba(255,255,255,.24);
+  font:600 clamp(14px,1.5vw,19px)/1.2 var(--serif);
+  letter-spacing:.02em;
+  cursor:pointer;
+  animation:softAppear .5s both;
+}
+.continue-invitation.intro-enter-button:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.continue-invitation.intro-enter-button svg{flex:none}
+.envelope-is-closed .envelope-open-button{cursor:pointer}
+.envelope-is-open .envelope-open-button{pointer-events:none}
+.envelope-scroll-section.envelope-is-open .envelope-floral-corners,
+.envelope-scroll-section.envelope-is-open .intro-hanging-lantern{opacity:.85}
+@media(max-width:640px){
+  .envelope-scroll-section{min-height:100svh;padding:42px 12px 20px}
+  .envelope-scroll-section .envelope-intro-copy{margin-bottom:8px;padding-inline:7px}
+  .envelope-scroll-section .intro-overline{padding:8px 12px;font-size:7px;letter-spacing:.13em;gap:5px}
+  .envelope-scroll-section .envelope-intro-copy h1{font-size:clamp(34px,9.2vw,45px);line-height:1.02;margin-top:14px}
+  .envelope-scroll-section .envelope-intro-copy p{font-size:13px;line-height:1.35;margin-top:9px;max-width:94%}
+  .envelope-scroll-section .envelope-stage{width:min(430px,94vw);height:clamp(280px,78vw,340px)}
+  .envelope-scroll-section .envelope-body{height:73%}
+  .envelope-scroll-section .invitation-paper{padding:11px}
+  .envelope-scroll-section .paper-mantra{font-size:13px;margin-bottom:5px}
+  .envelope-scroll-section .paper-caption{font-size:6px;margin-bottom:5px}
+  .envelope-scroll-section .invitation-paper strong{font-size:clamp(15px,4.4vw,19px)}
+  .envelope-scroll-section .paper-amp{font-size:17px;margin:0}
+  .envelope-scroll-section .gold-wax-seal{width:62px;height:62px}
+  .intro-flower-cluster{width:35vw;font-size:clamp(29px,9vw,42px)}
+  .intro-flower-cluster i{margin-top:-4px}
+  .intro-side-blooms{font-size:38px;bottom:9%}
+  .intro-hanging-lantern{top:19%;width:25px;height:78px}
+  .intro-hanging-lantern i{top:-33px;height:34px}
+  .intro-hanging-lantern:before{width:24px;height:7px}
+  .intro-hanging-lantern:after{top:7px;left:3px;width:19px;height:54px;border-radius:6px}
+  .intro-hanging-lantern span{top:20px;font-size:13px}
+  .lantern-left{left:3%}.lantern-right{right:3%}
+  .intro-tap-cue{gap:10px;margin-top:7px;width:min(280px,72vw)}
+  .intro-tap-cue svg{width:30px;height:30px}
+  .envelope-scroll-section .envelope-under-copy{font-size:6px;letter-spacing:.11em;padding:7px 9px;margin-top:6px;gap:7px}
+  .continue-invitation.intro-enter-button{margin-top:7px;padding:12px 17px;min-width:min(300px,88vw);font-size:16px}
+  .envelope-scroll-section.envelope-is-open .envelope-stage{height:clamp(305px,87vw,370px)}
+  .envelope-scroll-section.envelope-is-open .envelope-intro-copy{margin-bottom:5px}
+}
+@media(max-height:760px) and (min-width:641px){
+  .envelope-scroll-section{padding-top:28px;padding-bottom:18px}
+  .envelope-scroll-section .envelope-stage{height:clamp(290px,37vh,360px)}
+  .envelope-scroll-section .envelope-intro-copy{margin-bottom:10px}
+  .envelope-scroll-section.envelope-is-open .envelope-stage{height:clamp(300px,39vh,370px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .continue-invitation.intro-enter-button{animation:none}
+  .envelope-scroll-section .envelope-stage.is-opening .envelope-flap,
+  .envelope-scroll-section.envelope-is-open .invitation-paper{transition:none}
+}
