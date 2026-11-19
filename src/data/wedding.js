@@ -1,7 +1,7 @@
 export const wedding = {
   eventYear: 2026,
   invitationCardImage: '/images/demo-invitation-card.svg',
-  backgroundMusic: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2d/Aarti_Puja%2C_Ganpati_Vandana.ogg/Aarti_Puja%2C_Ganpati_Vandana.ogg.mp3?download=',
+  backgroundMusic: 'https://www.youtube.com/embed/0_oiYEW7F7E',
   bride: {
     name: 'PUSHPANJALI KUMARI',
     hindi: 'पुष्पांजलि कुमारी',
