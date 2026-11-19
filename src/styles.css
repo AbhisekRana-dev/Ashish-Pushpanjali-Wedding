@@ -164,3 +164,32 @@ body{background:linear-gradient(180deg,#FFF8F0 0%,#F4C7D4 26%,#E9DDF2 52%,#F7EBD
   .envelope-scroll-hint{animation:none}
   .envelope-scroll-section .envelope-flap,.envelope-scroll-section .invitation-paper,.envelope-scroll-section .gold-wax-seal{transition:none}
 }
+
+
+/* One deliberate tap opens the envelope; the rest of the page is mounted afterwards */
+.envelope-scroll-section{min-height:100svh;height:100svh;max-height:100svh}
+.envelope-scroll-section .envelope-stage{cursor:default;touch-action:manipulation}
+.envelope-open-button{
+  appearance:none;position:absolute;inset:0;z-index:20;width:100%;height:100%;
+  display:block;margin:0;padding:0;border:0;border-radius:8px;background:transparent;
+  cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent
+}
+.envelope-open-button:disabled{cursor:default;pointer-events:none}
+.envelope-open-button:focus-visible{outline:3px solid #D6B46A;outline-offset:8px}
+.envelope-is-closed .envelope-scroll-hint{opacity:.72}
+.envelope-is-open .envelope-scroll-hint{opacity:1;transition:opacity .35s ease}
+.envelope-scroll-section .envelope-flap{backface-visibility:hidden}
+.envelope-scroll-section .envelope-stage.is-opening .envelope-flap{
+  transform:rotateX(180deg);transition-duration:1.12s
+}
+.envelope-scroll-section .envelope-stage.is-opening .gold-wax-seal{
+  opacity:0;transform:translate(-50%,-50%) scale(1.55) rotate(25deg);
+  transition:opacity .36s,transform .45s
+}
+.envelope-scroll-section .envelope-stage.card-is-up .invitation-paper{
+  transform:translateY(-18%);z-index:8
+}
+@media(prefers-reduced-motion:reduce){
+  .envelope-scroll-section .envelope-stage.is-opening .envelope-flap,
+  .envelope-scroll-section .envelope-stage.card-is-up .invitation-paper{transition:none}
+}
