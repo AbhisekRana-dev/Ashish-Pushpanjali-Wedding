@@ -1085,3 +1085,12 @@ nav.mobile-quick-dock,
 @media(prefers-reduced-motion:reduce){
   .editorial-primary-action,.editorial-secondary-action,.event-card-visual img{transition:none}
 }
+
+
+/* Keep the framed invitation artwork proportionate at every breakpoint. */
+.editorial-preview-scene{height:clamp(340px,37vw,510px);min-height:0}
+.editorial-preview-paper{height:86%;min-height:0}
+@media(max-width:700px){
+  .editorial-preview-scene{height:clamp(325px,82vw,420px);min-height:0}
+  .editorial-preview-paper{height:88%;min-height:0}
+}
