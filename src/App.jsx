@@ -339,7 +339,7 @@ export default function App() {
   const [musicOn, setMusicOn] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const [showTop, setShowTop] = useState(false);
-  const audio = useRef(null);
+  const musicPlayer = useRef(null);
 
   useReveal(envelopeRevealed);
 
@@ -353,24 +353,27 @@ export default function App() {
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
   }, []);
-  const startMusic = React.useCallback(() => {
-    if (!audio.current) return;
-    audio.current.volume = 0.34;
-    const playback = audio.current.play();
-    if (playback?.then) playback.then(() => setMusicOn(true)).catch(() => setMusicOn(false));
-  }, []);
-  const toggleMusic = async () => {
-    if (!audio.current) return;
-    if (musicOn) { audio.current.pause(); setMusicOn(false); return; }
-    try { await audio.current.play(); setMusicOn(true); } catch { setMusicOn(false); }
+  const sendMusicCommand = command => {
+    const frame = musicPlayer.current;
+    if (!frame?.contentWindow) return false;
+    frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func: command, args: [] }), 'https://www.youtube.com');
+    return true;
   };
+  const startMusic = React.useCallback(() => { setMusicOn(true); }, []);
+  const toggleMusic = () => {
+    const next = !musicOn;
+    sendMusicCommand(next ? 'playVideo' : 'pauseVideo');
+    setMusicOn(next);
+    document.getElementById('music')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+  const handleMusicPlayerLoad = () => { if (musicOn) sendMusicCommand('playVideo'); };
   const openPhoto = index => setActivePhoto(index);
   const closePhoto = () => setActivePhoto(-1);
   const nextPhoto = () => setActivePhoto(i => (i + 1) % wedding.gallery.length);
   const prevPhoto = () => setActivePhoto(i => (i - 1 + wedding.gallery.length) % wedding.gallery.length);
 
   return <>
-    <audio ref={audio} src={wedding.backgroundMusic} loop preload="none" onPause={() => setMusicOn(false)} onPlay={() => setMusicOn(true)}/>
+
     <div className="invite-website"><div className="page-progress" style={{ transform: `scaleX(${scrollPct})` }}/>
         <main>
           <EnvelopeOpening onReveal={revealWebsite} onStartMusic={startMusic}/>
@@ -391,6 +394,30 @@ export default function App() {
               <p className="hero-verse">Two hearts, one promise, a lifetime of togetherness.<br/>We request the honour of your presence and blessings.</p>
             </div>
             <span className="scroll-invite" aria-hidden="true">SCROLL TO EXPLORE <ChevronDown size={15}/></span>
+          </section>
+
+          <section className="wedding-song-section" id="music" aria-label="Wedding devotional song">
+            <div className="wedding-song-card" data-reveal>
+              <span className="wedding-song-ornament">॥ श्री सीतारामचन्द्राभ्यां नमः ॥</span>
+              <span className="section-eyebrow">A DIVINE WEDDING MELODY</span>
+              <h2>सीता राम <em>विवाह गीत</em></h2>
+              <p className="wedding-song-subtitle">A devotional celebration of the sacred wedding of Siya and Ram</p>
+              <div className="wedding-song-player">
+                <iframe
+                  ref={musicPlayer}
+                  title="Sita Ram Vivah Geet — Suresh Wadkar, Shemaroo Bhakti"
+                  src={wedding.backgroundMusic + "?autoplay=1&controls=1&enablejsapi=1&playsinline=1&rel=0&origin=" + encodeURIComponent(window.location.origin)}
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  onLoad={handleMusicPlayerLoad}
+                />
+              </div>
+              <p className="wedding-song-credit">गीत: सीता राम विवाह गीत · स्वर: सुरेश वाडकर · Shemaroo Bhakti</p>
+              <button type="button" className="wedding-song-toggle" onClick={toggleMusic}>
+                {musicOn ? <Pause size={17}/> : <Play size={17}/>}
+                {musicOn ? 'PAUSE BHAJAN' : 'PLAY BHAJAN'}
+              </button>
+            </div>
           </section>
 
           <section className="invite-section" id="invitation-details">
