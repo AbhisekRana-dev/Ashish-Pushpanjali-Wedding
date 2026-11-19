@@ -19,11 +19,14 @@ function Petals({ muted = false }) {
 }
 
 const butterflyFlights = [
-  { left: '5%', top: '20%', delay: '-5s', duration: '28s', size: '22px' },
-  { left: '28%', top: '68%', delay: '-17s', duration: '32s', size: '25px' },
-  { left: '48%', top: '30%', delay: '-11s', duration: '25s', size: '19px' },
-  { left: '68%', top: '78%', delay: '-22s', duration: '34s', size: '24px' },
-  { left: '88%', top: '42%', delay: '-8s', duration: '29s', size: '20px' },
+  { left: '-4%', top: '12%', delay: '-2s', duration: '18s', size: '23px' },
+  { left: '8%', top: '36%', delay: '-9s', duration: '22s', size: '21px' },
+  { left: '17%', top: '71%', delay: '-15s', duration: '20s', size: '24px' },
+  { left: '31%', top: '22%', delay: '-5s', duration: '24s', size: '19px' },
+  { left: '43%', top: '55%', delay: '-13s', duration: '19s', size: '22px' },
+  { left: '57%', top: '82%', delay: '-18s', duration: '23s', size: '20px' },
+  { left: '69%', top: '39%', delay: '-7s', duration: '18s', size: '25px' },
+  { left: '82%', top: '15%', delay: '-12s', duration: '21s', size: '21px' },
 ];
 function ButterflyFlight({ muted = false }) {
   if (muted) return null;
