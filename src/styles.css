@@ -366,15 +366,6 @@ body{
 .butterfly-glyph{display:inline-block;transform-origin:50% 52%;animation:butterfly-wing-flap .42s ease-in-out infinite alternate}
 @keyframes butterfly-wing-flap{from{transform:scale(.9,.78) rotate(-8deg)}to{transform:scale(1.08,1) rotate(8deg)}}
 
-/* Keep the devotional track audio-only: no visible thumbnail, photo, text or player. */
-.background-music-frame{
-  position:fixed!important;left:-10px!important;bottom:-10px!important;
-  width:1px!important;height:1px!important;min-width:1px!important;min-height:1px!important;
-  opacity:0!important;pointer-events:none!important;border:0!important;
-  clip-path:inset(50%)!important;overflow:hidden!important;
-}
-
-
 /* Minimal floating music toggle; the navigation bar is intentionally removed. */
 .wedding-floating-controls{
   position:fixed;z-index:110;right:16px;
