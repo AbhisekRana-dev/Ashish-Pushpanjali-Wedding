@@ -66,7 +66,7 @@ function EnvelopeIntro({ onContinue, onSkip, reducedMotion }) {
       return;
     }
     window.setTimeout(() => setCardUp(true), 700);
-    window.setTimeout(() => setStage('revealed'), 1550);
+    window.setTimeout(() => setStage('revealed'), 2350);
   };
   return <main className="envelope-intro" aria-label="Wedding invitation envelope">
     <Petals muted={reducedMotion}/>
