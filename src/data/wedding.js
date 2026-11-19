@@ -1,7 +1,7 @@
 export const wedding = {
   eventYear: 2026,
   invitationCardImage: '/images/demo-invitation-card.svg',
-  backgroundMusic: 'https://www.youtube.com/embed/0_oiYEW7F7E',
+  backgroundMusic: 'https://www.youtube.com/embed/zdrpwv2RNAg',
   bride: {
     name: 'PUSHPANJALI KUMARI',
     hindi: 'पुष्पांजलि कुमारी',
@@ -28,7 +28,6 @@ export const wedding = {
     { date: '9TH DECEMBER', isoDate: '2026-12-09', dateHindi: '९ दिसंबर', name: 'WEDDING', nameHindi: 'शुभ विवाह', venue: 'M.G. COLLEGE, SUNDARPUR, DARBHANGA', venueHindi: 'एम.जी. कॉलेज, सुंदरपुर, दरभंगा', searchVenue: 'M.G. College, Sundarpur, Darbhanga, Bihar', theme: 'wine', number: '03', icon: '❋', image: 'https://images.pexels.com/photos/39797465/pexels-photo-39797465.jpeg?auto=compress&cs=tinysrgb&w=900', imageAlt: 'Sample floral wedding mandap illuminated at twilight' },
   ],
   gallery: [
-    { title: 'A little Mithila charm', subtitle: 'मिथिला की सांस्कृतिक छटा', image: 'https://j3k5s6s3.rocketcdn.me/wp-content/uploads/2021/08/RamSitaVivah-scaled.jpg', alt: 'Traditional Madhubani-style wedding painting', className: 'gallery-tall' },
     { title: 'A marigold welcome', subtitle: 'गेंदे के फूलों की सजावट', image: 'https://cdn.venuelook.com/blog/personal-touches-with-floral-d-cor-9418bc42-83ab-4f77-b498-ab5bd706502a.jpg', alt: 'Yellow marigold haldi decor', className: '' },
     { title: 'The wedding mandap', subtitle: 'शुभ विवाह का मंडप', image: 'https://cdn0.weddingwire.in/vendor/5395/3_2/960/jpg/wedding-decoration-dreamzkrraft-wedding-decor-2_15_305395-161424807587730.jpeg', alt: 'Sample floral wedding mandap', className: '' },
     { title: 'Celebrations in colour', subtitle: 'रंगों में सजे उत्सव', image: 'https://dy3rma73kowlp.cloudfront.net/uploads/2025/11/Mehndi-Function-Decoration-Ideas-At-Home-1.jpg', alt: 'Colorful mehndi ceremony decor', className: 'gallery-wide' },
