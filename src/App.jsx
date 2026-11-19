@@ -233,15 +233,34 @@ function EventCard({ event }) {
 
 function InvitationShowcase() {
   const shareUrl = 'https://wa.me/?text=' + encodeURIComponent(wedding.brideSide.whatsappMessage);
+  const [invitationImage, setInvitationImage] = useState(wedding.invitationCardImage);
+
+  useEffect(() => {
+    let active = true;
+    const imageParts = Array.from({ length: 6 }, (_, index) =>
+      fetch(`/images/couple-invitation-part-${index}.txt`)
+        .then(response => {
+          if (!response.ok) throw new Error(`Invitation image part ${index} failed to load`);
+          return response.text();
+        })
+    );
+
+    Promise.all(imageParts)
+      .then(parts => {
+        if (active) setInvitationImage(`data:image/avif;base64,${parts.join('')}`);
+      })
+      .catch(error => {
+        console.error('Could not load the high-resolution invitation artwork:', error);
+      });
+
+    return () => { active = false; };
+  }, []);
+
   return <section className="invite-section invitation-showcase-section" id="invitation">
     <SectionHeading eyebrow="AN INVITATION FROM OUR FAMILY" title="A Beautiful" accent="Beginning"/>
     <figure className="editorial-preview editorial-preview-photo" data-reveal>
-      <a className="editorial-couple-photo-link" href={wedding.invitationCardImage} target="_blank" rel="noreferrer" aria-label="Open the full wedding invitation card">
-        <img className="editorial-couple-photo" src={wedding.invitationCardImage} alt="Wedding invitation for Pushpanjali Kumari and Ashish Kumar Gupta, with their wedding dates and Darbhanga location" loading="lazy"/>
-        <span className="editorial-card-name-reorder" aria-hidden="true">
-          <strong>{wedding.bride.name}</strong><i>&</i><strong>{wedding.groom.name}</strong>
-        </span>
-        <span className="editorial-preview-open">OPEN INVITATION <ArrowUpRight size={14}/></span>
+      <a className="editorial-couple-photo-link" href={invitationImage} target="_blank" rel="noreferrer" aria-label="Open the full wedding invitation card">
+        <img className="editorial-couple-photo" src={invitationImage} alt="Illustrated wedding invitation showing Pushpanjali Kumari and Ashish Kumar Gupta together in a decorated wedding mandap" loading="lazy"/>
       </a>
       <figcaption><span>॥ श्री गणेशाय नमः ॥</span><small>WITH LOVE FROM PUSHPANJALI'S FAMILY</small></figcaption>
     </figure>
