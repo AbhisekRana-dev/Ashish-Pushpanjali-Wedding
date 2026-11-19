@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 /* Reference recreation: portrait invitation envelope, blush, ivory and soft rose */
 :root{
-  --blush:#eac4c1;--blush-deep:#cf9da0;--pink:#b97683;--rose:#995d68;
-  --cream:#fbf6ee;--paper:#fffdf8;--ink:#66434a;--muted:#a58b83;
-  --gold:#d2aa69;--gold-light:#f2dfb9;--line:#eadbd0;
+  --blush:#F4C7D4;--blush-deep:#D987A5;--pink:#D987A5;--rose:#9F536F;
+  --cream:#F7EBDD;--paper:#FFF8F0;--ink:#704457;--muted:#9a7c89;
+  --gold:#D6B46A;--gold-light:#f2dfb9;--line:#ebcdd8;--lavender:#E9DDF2;
   --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
   --script:"Segoe Script","Brush Script MT",cursive;
 }
@@ -63,3 +63,48 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 @media(max-width:640px){.envelope-intro{padding:70px 17px 35px}.intro-skip{right:23px;top:22px;font-size:8px;padding:8px 10px}.envelope-intro-copy{margin-bottom:16px}.envelope-intro-copy h1{font-size:30px}.envelope-intro-copy p{font-size:14px}.envelope-stage{width:min(400px,89vw);height:clamp(270px,84vw,350px)}.envelope-body{height:72%}.gold-wax-seal{width:65px;height:65px}.envelope-under-copy{font-size:7px;letter-spacing:.16em;margin-top:16px;gap:9px}.invitation-paper{padding:12px}.paper-mantra{font-size:14px}.paper-caption{font-size:6px}.paper-date{font-size:8px}.invite-hero{padding:58px 15px 60px}.hero-card-art{padding:32px 16px}.hero-photo-pair{gap:7px;margin:20px auto}.hero-photo-pair figure{height:135px;border-width:4px}.hero-verse{font-size:15px}.invite-section{padding:61px 16px}.event-section{padding:61px 16px}.event-detail-card{grid-template-columns:39px minmax(0,1fr) 22px;gap:10px;padding:19px 13px}.event-card-number{width:35px;height:35px;font-size:13px}.event-card-copy h3{font-size:22px}.event-place{font-size:11px}.event-card-flower{font-size:18px}.event-card-actions{gap:13px}.countdown-strip{gap:5px;margin-top:32px}.countdown-cell{padding:12px 3px}.countdown-cell strong{font-size:28px}.countdown-cell span{font-size:6px;letter-spacing:.12em}.venue-panel{margin:54px 14px;padding:37px 17px}.venue-panel>strong{font-size:13px}.photo-mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:150px;gap:8px}.photo-tile.tile-1{grid-row:span 2}.photo-tile.tile-4{grid-column:span 2}.photo-tile{border-width:3px}.photo-tile-caption{left:9px;bottom:10px;gap:7px}.photo-tile-caption strong{font-size:13px}.photo-tile-caption small{font-size:10px}.scratch-section-wrap{padding:55px 13px}.wish-list{grid-template-columns:1fr}.rsvp-invitation{padding:59px 16px}.float-actions{right:10px;bottom:10px}.music-action span{display:none}.gallery-viewer{padding:18px}.viewer-arrow.previous{left:5px}.viewer-arrow.next{right:5px}}
 @media(max-width:380px){.envelope-stage{height:270px}.envelope-under-copy{font-size:6px}.event-card-actions{gap:9px}.event-card-actions a,.event-card-actions button{font-size:7px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.petal-sprinkle{display:none}[data-reveal]{opacity:1;transform:none}}
+
+
+/* Premium colourful continuous invitation theme */
+html{scroll-behavior:smooth;scroll-padding-top:18px;overflow-x:clip}
+body{background:linear-gradient(180deg,#FFF8F0 0%,#F4C7D4 26%,#E9DDF2 52%,#F7EBDD 76%,#FFF8F0 100%);color:#704457;overscroll-behavior-y:auto}
+#root{overflow:clip}
+.envelope-intro{background:radial-gradient(ellipse at 50% 35%,rgba(255,248,240,.94),transparent 46%),linear-gradient(145deg,#F4C7D4,#E9DDF2 52%,#F7EBDD)}
+.auto-envelope-intro .envelope-intro-copy p{letter-spacing:.04em}
+.invite-website{background:transparent;overflow:clip}
+.invite-hero{background:radial-gradient(ellipse at 15% 15%,rgba(233,221,242,.9),transparent 34%),radial-gradient(ellipse at 85% 80%,rgba(244,199,212,.82),transparent 38%),linear-gradient(145deg,#FFF8F0,#F7EBDD);padding-top:clamp(60px,8vw,104px);padding-bottom:clamp(70px,9vw,110px)}
+.hero-card-art{background:linear-gradient(145deg,rgba(255,248,240,.96),rgba(244,199,212,.7));border:1px solid rgba(214,180,106,.62);box-shadow:0 22px 65px rgba(159,83,111,.14),inset 0 0 0 7px rgba(255,248,240,.48)}
+.hero-card-art:after{content:"✿   ❀   ✿";display:block;margin:25px auto 0;color:#D6B46A;letter-spacing:.45em;font-size:16px}
+.invite-section{position:relative;padding-top:clamp(65px,8vw,105px);padding-bottom:clamp(65px,8vw,105px)}
+.invitation-message-card{background:linear-gradient(135deg,#FFF8F0,#F4C7D4 130%);border-color:#D6B46A;box-shadow:0 18px 54px rgba(159,83,111,.12)}
+.event-section{background:linear-gradient(135deg,#F4C7D4 0%,#F7EBDD 48%,#E9DDF2 100%);position:relative;isolation:isolate}
+.event-section:before,.rsvp-invitation:before{content:"✿  ❀  ✿  ❀  ✿";display:block;text-align:center;color:#D6B46A;letter-spacing:.75em;font-size:16px;margin-bottom:30px;opacity:.8}
+.event-detail-card{background:linear-gradient(135deg,#FFF8F0,#fff2f4);border:1px solid rgba(214,180,106,.72);border-radius:5px;box-shadow:0 16px 40px rgba(159,83,111,.12)}
+.event-card-number{background:linear-gradient(145deg,#FFF8F0,#E9DDF2);border-color:#D6B46A;color:#9F536F}
+.countdown-cell{background:linear-gradient(145deg,#FFF8F0,#F4C7D4);border-color:rgba(214,180,106,.64);border-radius:6px;box-shadow:0 8px 22px rgba(159,83,111,.09)}
+.venue-panel{background:radial-gradient(ellipse at top left,#E9DDF2,transparent 58%),linear-gradient(135deg,#FFF8F0,#F4C7D4);border:1px solid #D6B46A;border-radius:6px;box-shadow:0 20px 55px rgba(159,83,111,.13)}
+.gallery-section{background:linear-gradient(150deg,#FFF8F0,#E9DDF2 52%,#F4C7D4);max-width:none;padding-left:max(18px,calc((100vw - 1020px)/2));padding-right:max(18px,calc((100vw - 1020px)/2))}
+.photo-tile{border-color:#FFF8F0;box-shadow:0 12px 32px rgba(159,83,111,.15)}
+.scratch-section-wrap{background:linear-gradient(135deg,#E9DDF2,#F4C7D4,#F7EBDD)}
+.wishes-section{max-width:100%;background:linear-gradient(145deg,#FFF8F0,#E9DDF2);padding-left:max(20px,calc((100vw - 800px)/2));padding-right:max(20px,calc((100vw - 800px)/2))}
+.wish-list blockquote{background:linear-gradient(135deg,#FFF8F0,#F4C7D4);border-color:#D6B46A;border-radius:5px}
+.rsvp-invitation{background:linear-gradient(135deg,#E9DDF2 0%,#F4C7D4 52%,#F7EBDD 100%);position:relative}
+.rsvp-invitation-form input,.rsvp-invitation-form select,.rsvp-invitation-form textarea{background:#FFF8F0;border-color:#D6B46A;border-radius:5px}
+.rsvp-submit,.rsvp-confirmation button,.wish-form button{background:linear-gradient(120deg,#9F536F,#D987A5);border:1px solid #D6B46A;box-shadow:0 8px 22px rgba(159,83,111,.2);border-radius:3px}
+.invite-footer{background:linear-gradient(135deg,#9F536F,#D987A5 56%,#E9DDF2);color:#FFF8F0;position:relative}
+.invite-footer h2 em,.footer-flower{color:#F7EBDD}
+.content-heading:after{content:"❀  ✧  ❀";display:block;color:#D6B46A;letter-spacing:.6em;margin-top:12px}
+.section-eyebrow{color:#9F536F}
+.gold-wax-seal{background:radial-gradient(circle at 32% 25%,#fff2c9 0,#D6B46A 48%,#9d7032 100%)}
+[data-reveal]{opacity:1;transform:translateY(0)}
+@media(min-width:641px){.invite-section:not(.event-section):not(.gallery-section){border-radius:0}.invite-section:not(.event-section):not(.gallery-section):after{content:"✿  ❀  ✿";display:block;text-align:center;color:#D6B46A;letter-spacing:.8em;margin-top:36px}}
+@media(max-width:640px){
+  .invite-hero{padding-left:15px;padding-right:15px}
+  .hero-card-art{box-shadow:0 12px 35px rgba(159,83,111,.13)}
+  .event-section{padding-left:14px;padding-right:14px}
+  .gallery-section{padding-left:14px;padding-right:14px}
+  .wish-list{gap:10px}
+  .countdown-cell strong{font-size:clamp(24px,8vw,30px)}
+  .hero-photo-pair figure{min-width:0}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
