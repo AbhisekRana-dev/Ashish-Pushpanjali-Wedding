@@ -4,11 +4,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/restore-source.mjs",
     "dev": "vite",
-    "prebuild": "node scripts/restore-source.mjs",
     "build": "vite build",
-    "prepreview": "node scripts/restore-source.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

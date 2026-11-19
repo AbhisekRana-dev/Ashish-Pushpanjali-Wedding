@@ -1,46 +1,35 @@
-# Ashish & Pushpanjali — Wedding Invitation
+# Ashish & Pushpanjali — Cinematic Wedding Invitation
 
-React + Vite wedding invitation for the December 2026 celebrations in Darbhanga, Bihar.
+React + Vite wedding invitation for the December 2026 celebrations. The existing names, family details, event dates, venue names, Hindi details and gallery source data are preserved from the project.
 
 ## Run locally
 
 ```bash
 npm install
 npm run dev
-```
-
-Build and preview:
-
-```bash
 npm run build
-npm run preview
 ```
 
-The editable React source is stored as gzip snapshots under `source/`. The prebuild/predev restore script expands the snapshots into `src/` only when those files are absent.
+## Cinematic intro
 
-## Main features
+Royal doors → envelope with golden wax seal → interactive scratch-heart (mouse/touch) with tap-to-reveal fallback → invitation reveal → main website. Guests can skip the intro. Completion is remembered for the current tab session.
 
-- Automatic opening sequence and scrollable invitation
-- Grand mandap hero and animated couple names
-- Digital invitation card preview
-- Expandable bride/groom family cards
-- Three event cards with directions and calendar downloads
-- Gallery lightbox with previous/next navigation
-- Blessing wall saved in the visitor's browser
-- RSVP with an initially blank guest-count selection
-- Responsive desktop and mobile styling
+## Existing functionality retained
 
-## Personalise
+- Countdown to the December 9, 2026 wedding date
+- Event cards, map directions and calendar downloads
+- Gallery lightbox with next/previous and keyboard support
+- Bride/groom and family details
+- Local blessing wall
+- RSVP preview with a blank guest-count selection and copyable response
+- Background music control
 
-Edit `src/data/wedding.js`. Add the actual portraits as:
+## Important current limitations
 
-- `public/images/bride-photo.jpg`
-- `public/images/groom-photo.jpg`
-
-The current site uses initial/placeholder treatments until those photographs are added.
-
-Add the soundtrack file at `public/audio/ganesh-vandana-inspired-instrumental.mp3` to enable the background music control.
-
-## Demo limitations
-
-RSVP submissions are currently local/copyable only and are not delivered to a server. Blessing messages are saved in each visitor's browser. Autoplay may be blocked by the browser; visitors can use the music control after the page loads.
+- The inspected source has no event timings. No times have been invented.
+- The stored venue data in the existing project is in Darbhanga, Bihar. The task text also mentions Jhargram, West Bengal; this is a conflict that must be verified before sending invitations.
+- RSVP currently prepares a copyable response; no server submission or guest-management database was present in the source.
+- Blessings are stored in each visitor's browser only.
+- No QR guest check-in or unique guest links were found in the inspected source.
+- Replace the portrait placeholders with actual photographs at `public/images/bride-photo.jpg` and `public/images/groom-photo.jpg`.
+- Browsers may block autoplay; use the visible music control if playback does not start automatically.
