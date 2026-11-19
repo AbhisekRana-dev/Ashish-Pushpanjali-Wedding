@@ -31,7 +31,7 @@ function ButterflyFlight({ muted = false }) {
     {butterflyFlights.map((butterfly, i) => <span key={i} className={`flying-butterfly butterfly-${i + 1}`} style={{
       '--flight-left': butterfly.left, '--flight-top': butterfly.top,
       '--flight-delay': butterfly.delay, '--flight-duration': butterfly.duration, '--flight-size': butterfly.size,
-    }}>🦋</span>)}
+    }}><span className="butterfly-glyph">🦋</span></span>)}
   </div>;
 }
 
