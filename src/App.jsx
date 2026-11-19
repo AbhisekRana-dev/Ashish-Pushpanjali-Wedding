@@ -58,19 +58,6 @@ function useReveal(enabled) {
 }
 
 
-function useReducedMotion() {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const media = window.matchMedia?.('(prefers-reduced-motion: reduce)');
-    if (!media) return;
-    const update = () => setReduced(media.matches);
-    update();
-    media.addEventListener?.('change', update);
-    return () => media.removeEventListener?.('change', update);
-  }, []);
-  return reduced;
-}
-
 function EnvelopeOpening() {
   const reducedMotion = useReducedMotion();
   const [opened, setOpened] = useState(false);
