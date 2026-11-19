@@ -1,0 +1,23 @@
+{
+  "name": "ashish-pushpanjali-wedding-invitation",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/restore-source.mjs",
+    "dev": "vite",
+    "prebuild": "node scripts/restore-source.mjs",
+    "build": "vite build",
+    "prepreview": "node scripts/restore-source.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.5"
+  }
+}
