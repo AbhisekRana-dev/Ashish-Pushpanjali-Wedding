@@ -108,3 +108,57 @@ body{background:linear-gradient(180deg,#FFF8F0 0%,#F4C7D4 26%,#E9DDF2 52%,#F7EBD
   .hero-photo-pair figure{min-width:0}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+/* Scrollable automatic envelope experience — not a fixed intro overlay */
+.envelope-scroll-section{
+  position:relative;isolation:isolate;min-height:100svh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;overflow:hidden;padding:78px 18px 54px;
+  background:
+    radial-gradient(ellipse at 50% 36%,rgba(255,248,240,.94),transparent 45%),
+    radial-gradient(ellipse at 12% 78%,rgba(217,135,165,.22),transparent 40%),
+    radial-gradient(ellipse at 88% 20%,rgba(233,221,242,.9),transparent 42%),
+    linear-gradient(145deg,#F4C7D4 0%,#E9DDF2 53%,#F7EBDD 100%);
+}
+.envelope-scroll-section:before,.envelope-scroll-section:after{
+  content:"";position:absolute;pointer-events:none;inset:15px;border:1px solid rgba(255,248,240,.76);z-index:1
+}
+.envelope-scroll-section:after{inset:23px;border-color:rgba(159,83,111,.18)}
+.envelope-scroll-section>.petal-sprinkle{z-index:0}
+.envelope-scroll-section .envelope-intro-copy{z-index:2;margin:0 0 24px;max-width:90vw}
+.envelope-scroll-section .envelope-intro-copy h1{font-size:clamp(32px,5vw,50px)}
+.envelope-scroll-section .envelope-intro-copy p{color:#8e5b70}
+.envelope-scroll-section .envelope-stage{z-index:2;flex:none;width:min(470px,88vw);height:clamp(285px,62vw,370px)}
+.envelope-scroll-section .envelope-under-copy{z-index:2;margin-top:12px}
+.envelope-scroll-hint{
+  position:relative;z-index:2;display:flex;gap:8px;align-items:center;margin-top:26px;
+  color:#9F536F;text-decoration:none;font-size:9px;letter-spacing:.22em;
+  animation:hintFloat 2.3s ease-in-out infinite
+}
+@keyframes hintFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.envelope-scroll-section .invitation-paper{background:linear-gradient(145deg,#FFF8F0,#fff5ed);border-color:#D6B46A}
+.envelope-scroll-section .paper-venue{color:#9F536F}
+.envelope-scroll-section .envelope-body{box-shadow:0 28px 46px rgba(159,83,111,.2),0 5px 11px rgba(121,73,79,.12),inset 0 1px rgba(255,255,255,.7)}
+.envelope-scroll-section .gold-wax-seal{background:radial-gradient(circle at 32% 25%,#fff2c9 0,#D6B46A 48%,#9d7032 100%)}
+.envelope-scroll-section .envelope-flap:before{background:linear-gradient(135deg,#f6d0d9,#D987A5 58%,#ecc2cd)}
+.envelope-scroll-section .envelope-pocket-left{background:linear-gradient(28deg,#e9b7c4,#d987a5)}
+.envelope-scroll-section .envelope-pocket-right{background:linear-gradient(330deg,#f4ccd4,#d9a3b1)}
+.envelope-scroll-section .envelope-pocket-bottom{background:linear-gradient(0deg,#cf91a5,#e7b1be 90%)}
+.envelope-scroll-section .envelope-stage.card-is-up .invitation-paper{transform:translateY(-22%);z-index:8}
+.has-scroll-reveal [data-reveal]{opacity:0;transform:translateY(22px)}
+.has-scroll-reveal [data-reveal].is-visible{opacity:1;transform:translateY(0)}
+@media(max-width:640px){
+  .envelope-scroll-section{min-height:100svh;padding:70px 14px 44px}
+  .envelope-scroll-section .envelope-intro-copy{margin-bottom:12px}
+  .envelope-scroll-section .envelope-intro-copy h1{font-size:clamp(29px,8vw,36px)}
+  .envelope-scroll-section .envelope-intro-copy p{font-size:14px}
+  .envelope-scroll-section .envelope-stage{width:min(400px,89vw);height:clamp(270px,84vw,350px)}
+  .envelope-scroll-section .envelope-body{height:72%}
+  .envelope-scroll-section .gold-wax-seal{width:65px;height:65px}
+  .envelope-scroll-section .envelope-under-copy{font-size:7px;letter-spacing:.16em;margin-top:10px;gap:9px}
+  .envelope-scroll-hint{margin-top:18px;font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){
+  .envelope-scroll-hint{animation:none}
+  .envelope-scroll-section .envelope-flap,.envelope-scroll-section .invitation-paper,.envelope-scroll-section .gold-wax-seal{transition:none}
+}
