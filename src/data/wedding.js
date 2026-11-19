@@ -1,6 +1,6 @@
 export const wedding = {
   eventYear: 2026,
-  invitationCardImage: '/images/demo-invitation-card.svg',
+  invitationCardImage: '/images/couple-invitation.webp',
   bride: {
     name: 'PUSHPANJALI KUMARI',
     hindi: 'पुष्पांजलि कुमारी',
