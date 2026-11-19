@@ -1,6 +1,6 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, Check, ChevronDown, Clock3, Copy, Flower2, Heart, MapPin, Music2, Pause, Play, Share2, Sparkles, X } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, Check, ChevronDown, Clock3, Copy, Flower2, Heart, Mail, MapPin, MousePointerClick, Music2, Pause, Play, Share2, Sparkles, X } from 'lucide-react';
 import { wedding } from './data/wedding.js';
 
 const flowerPetals = Array.from({ length: 20 }, (_, i) => i);
@@ -92,24 +92,39 @@ function EnvelopeOpening({ onReveal, onStartMusic }) {
     if (!opened) return;
     if (reducedMotion) {
       setCardUp(true);
-      const revealTimer = window.setTimeout(onReveal, 250);
-      return () => window.clearTimeout(revealTimer);
+      return undefined;
     }
-    const cardTimer = window.setTimeout(() => setCardUp(true), 650);
-    const revealTimer = window.setTimeout(onReveal, 2250);
-    return () => {
-      window.clearTimeout(cardTimer);
-      window.clearTimeout(revealTimer);
-    };
-  }, [opened, reducedMotion, onReveal]);
+    const cardTimer = window.setTimeout(() => setCardUp(true), 850);
+    return () => window.clearTimeout(cardTimer);
+  }, [opened, reducedMotion]);
+
+  const enterWebsite = () => {
+    onReveal();
+    window.setTimeout(() => {
+      document.getElementById('home')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+    }, 140);
+  };
 
   return <section className={`envelope-scroll-section ${cardUp ? 'envelope-is-open' : 'envelope-is-closed'}`} aria-label="The wedding invitation envelope">
     <Petals muted={reducedMotion}/>
+    <div className="intro-corner-florals" aria-hidden="true">
+      <span className="intro-flower-cluster cluster-left">🌺 🌸 🌼<i>🌿</i></span>
+      <span className="intro-flower-cluster cluster-right">🌼 🌸 🌺<i>🌿</i></span>
+      <span className="intro-side-blooms bloom-left">🌸<i>🌿</i></span>
+      <span className="intro-side-blooms bloom-right">🌺<i>🌿</i></span>
+    </div>
+    <div className="intro-hanging-lantern lantern-left" aria-hidden="true"><i/><span>✦</span></div>
+    <div className="intro-hanging-lantern lantern-right" aria-hidden="true"><i/><span>✦</span></div>
+
     <div className="envelope-intro-copy">
       <span className="intro-overline">A LITTLE SOMETHING, SEALED WITH LOVE</span>
       <h1>A Special Invitation <em>For You</em></h1>
-      <p>{opened ? 'Your invitation is opening...' : 'Tap the envelope to open your invitation'}</p>
+      <p>{opened
+        ? 'We are delighted to invite you to the wedding celebration of our beloved daughter'
+        : 'Tap the envelope to open your invitation'}</p>
+      {!opened && <div className="intro-tap-cue" aria-hidden="true"><span/><MousePointerClick size={38}/><span/></div>}
     </div>
+
     <div className={`envelope-stage ${opened ? 'is-opening' : ''} ${cardUp ? 'card-is-up' : ''}`}>
       <div className="envelope-glow"/>
       <div className="invitation-paper">
@@ -140,18 +155,21 @@ function EnvelopeOpening({ onReveal, onStartMusic }) {
         type="button"
         onClick={openEnvelope}
         disabled={opened}
-        aria-label={opened ? 'Envelope opening' : 'Tap once to open the wedding envelope'}
+        aria-label={opened ? 'Invitation envelope opened' : 'Tap the envelope to open the wedding invitation'}
       />
     </div>
+
     <div className="envelope-under-copy">
-      <span className="tiny-flourish">✦</span>
+      <span className="tiny-flourish">♥</span>
       <span>{wedding.brideSide.envelopeByline}</span>
-      <span className="tiny-flourish">✦</span>
+      <span className="tiny-flourish">♥</span>
     </div>
-    <div className="envelope-scroll-hint" aria-hidden="true">
-      {cardUp ? 'YOUR INVITATION IS OPEN — SCROLL DOWN' : 'ONE TAP TO OPEN'}
-      <ChevronDown size={15}/>
-    </div>
+
+    {cardUp && <button className="continue-invitation intro-enter-button" type="button" onClick={enterWebsite}>
+      <Mail size={19}/> <span>Open Your Invitation</span> <ArrowRight size={19}/>
+    </button>}
+
+    {!opened && <div className="envelope-scroll-hint" aria-hidden="true">TAP TO OPEN <ChevronDown size={15}/></div>}
   </section>;
 }
 
