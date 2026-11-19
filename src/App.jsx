@@ -214,27 +214,101 @@ function EventCard({ event }) {
 }
 
 function FamilyBlessings() {
-  return <section className="family-blessings-section" aria-label="Family details">
-    <SectionHeading eyebrow="WITH THE BLESSINGS OF OUR ELDERS" title="Two Families" accent="One Celebration"/>
+  const weddingStage = wedding.events.find(event => event.name === 'WEDDING');
+  return <section className="family-blessings-section" aria-label="Family details" id="families">
+    <div className="family-section-index"><span>02</span><i/><strong>THE FAMILIES</strong></div>
+    <header className="family-editorial-heading" data-reveal>
+      <span className="family-hindi-kicker">शुभारम्भ</span>
+      <h2>Two families.<em>One beautiful beginning.</em></h2>
+      <p>With immense joy and the blessings of our elders, we invite you to<br className="desktop-only"/> witness the beginning of a beautiful new journey.</p>
+    </header>
+    <div className="family-story-banner" data-reveal>
+      <img src={weddingStage?.image} alt="Floral wedding mandap prepared for the wedding celebration" loading="lazy" onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/images/wedding-placeholder.svg'; }}/>
+      <span className="family-banner-shade"/>
+      <div className="family-banner-copy">
+        <span>THE BEGINNING OF FOREVER</span>
+        <p>एक नया अध्याय · A NEW CHAPTER</p>
+        <h3>Two souls, one beautiful story.</h3>
+      </div>
+    </div>
     <div className="family-blessing-grid">
-      <article className="family-blessing-card groom-family" data-reveal>
-        <div className="family-profile-portrait groom-portrait"><span>{wedding.groom.name.charAt(0)}</span><small>THE GROOM</small></div><span className="family-card-flower">❀</span><span className="family-card-kicker">GROOM'S FAMILY</span>
-        <h3>{wedding.groom.name}</h3><p className="family-card-hindi">{wedding.groom.hindi}</p>
-        <div className="family-divider">✦</div>
-        <p>{wedding.groom.father}</p><p className="family-card-hindi">{wedding.groom.fatherHindi}</p>
-        <p>{wedding.groom.mother}</p><p className="family-card-hindi">{wedding.groom.motherHindi}</p>
-      </article>
       <article className="family-blessing-card bride-family" data-reveal>
-        <div className="family-profile-portrait bride-portrait"><span>{wedding.bride.name.charAt(0)}</span><small>THE BRIDE</small></div><span className="family-card-flower">✿</span><span className="family-card-kicker">BRIDE'S FAMILY</span>
+        <span className="family-card-kicker">THE BRIDE</span>
+        <span className="family-card-flower">✿</span>
+        <div className="family-profile-portrait bride-portrait"><span>{wedding.bride.name.charAt(0)}</span><small>THE BRIDE</small></div>
         <h3>{wedding.bride.name}</h3><p className="family-card-hindi">{wedding.bride.hindi}</p>
-        <div className="family-divider">✦</div>
-        <p>{wedding.bride.father}</p><p className="family-card-hindi">{wedding.bride.fatherHindi}</p>
-        <p>{wedding.bride.mother}</p><p className="family-card-hindi">{wedding.bride.motherHindi}</p>
+        <div className="family-divider">✧</div>
+        <p className="family-parent-name">{wedding.bride.father}</p><p className="family-card-hindi">{wedding.bride.fatherHindi}</p>
+        <p className="family-parent-name">{wedding.bride.mother}</p><p className="family-card-hindi">{wedding.bride.motherHindi}</p>
+        <span className="family-meet-link">MEET THE FAMILY <ChevronDown size={13}/></span>
+      </article>
+      <div className="family-union-mark" aria-label="Together">
+        <span><Heart size={20} fill="currentColor"/></span>
+        <strong>बंधन</strong><small>TOGETHER</small>
+      </div>
+      <article className="family-blessing-card groom-family" data-reveal>
+        <span className="family-card-kicker">THE GROOM</span>
+        <span className="family-card-flower">❀</span>
+        <div className="family-profile-portrait groom-portrait"><span>{wedding.groom.name.charAt(0)}</span><small>THE GROOM</small></div>
+        <h3>{wedding.groom.name}</h3><p className="family-card-hindi">{wedding.groom.hindi}</p>
+        <div className="family-divider">✧</div>
+        <p className="family-parent-name">{wedding.groom.father}</p><p className="family-card-hindi">{wedding.groom.fatherHindi}</p>
+        <p className="family-parent-name">{wedding.groom.mother}</p><p className="family-card-hindi">{wedding.groom.motherHindi}</p>
+        <span className="family-meet-link">MEET THE FAMILY <ChevronDown size={13}/></span>
       </article>
     </div>
+    <p className="family-blessing-line"><span>✿</span> May the blessings of our parents and elders guide this new journey. <span>✿</span></p>
   </section>;
 }
 
+function InvitationShowcase() {
+  const previewEvent = wedding.events.find(event => event.name === 'WEDDING');
+  const dates = [
+    { day: '०५', label: 'MATKOR PUJA' },
+    { day: '०८', label: 'HALDI & MEHNDI' },
+    { day: '०९', label: 'WEDDING' },
+  ];
+  return <section className="invitation-editorial" id="invitation-details">
+    <div className="editorial-section-index"><span>01</span><i/><strong>THE WEDDING INVITATION</strong></div>
+    <div className="editorial-layout">
+      <div className="editorial-copy" data-reveal>
+        <p className="editorial-mantra">श्री गणेशाय नमः</p>
+        <h2>A little card.<em>A lifetime of memories.</em></h2>
+        <p className="editorial-description">A special invitation created for Ashish and Pushpanjali, with the blessings of our families and the warmth of Mithila wedding traditions.</p>
+        <div className="editorial-date-chips">
+          {dates.map(item => <div className="editorial-date-chip" key={item.label}><strong>{item.day}</strong><span>{item.label}</span></div>)}
+        </div>
+        <div className="editorial-actions">
+          <a className="editorial-primary-action" href="#events">VIEW CELEBRATIONS <ArrowUpRight size={16}/></a>
+          <a className="editorial-secondary-action" href={wedding.invitationCardImage} download="Ashish-Pushpanjali-Wedding-Invitation.svg"><ArrowDown size={17}/> SAVE CARD</a>
+        </div>
+      </div>
+      <figure className="editorial-preview" data-reveal>
+        <div className="editorial-preview-scene">
+          <img className="editorial-preview-backdrop" src={previewEvent?.image} alt="Wedding mandap with rich floral decoration" loading="lazy" onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/images/wedding-placeholder.svg'; }}/>
+          <span className="editorial-preview-shade"/>
+          <span className="editorial-preview-garland garland-left"/>
+          <span className="editorial-preview-garland garland-right"/>
+          <span className="editorial-preview-diya diya-left">🪔</span><span className="editorial-preview-diya diya-right">🪔</span>
+          <div className="editorial-preview-paper">
+            <span className="preview-ganesha">ॐ</span>
+            <span className="preview-mantra">॥ श्री गणेशाय नमः ॥</span>
+            <small>WITH THE BLESSINGS OF OUR FAMILIES</small>
+            <h3>{wedding.groom.name}<em>&</em>{wedding.bride.name}</h3>
+            <p className="preview-hindi-names">{wedding.groom.hindi} ♥ {wedding.bride.hindi}</p>
+            <span className="preview-shubh">शुभ विवाह</span>
+            <p className="preview-invite-line">We request the honour of your presence</p>
+            <span className="preview-date">05 · 08 · 09 DECEMBER {wedding.eventYear}</span>
+            <span className="preview-location">DARBHANGA · BIHAR</span>
+            <span className="preview-floral-bottom">✿　✧　❀　✧　✿</span>
+          </div>
+          <a className="editorial-preview-open" href={wedding.invitationCardImage} target="_blank" rel="noreferrer">OPEN INVITATION <ArrowUpRight size={14}/></a>
+        </div>
+        <figcaption><span>॥ श्री गणेशाय नमः ॥</span><small>A CELEBRATION OF LOVE · {wedding.eventYear}</small></figcaption>
+      </figure>
+    </div>
+  </section>;
+}
 function Gallery({ onOpen }) {
   return <section className="invite-section gallery-section" id="gallery">
     <SectionHeading eyebrow="A FEW BEAUTIFUL MOMENTS" title="Love in" accent="Every Detail"/>
@@ -498,22 +572,19 @@ export default function App() {
             <span className="scroll-invite" aria-hidden="true">SCROLL TO EXPLORE <ChevronDown size={15}/></span>
           </section>
 
-          <section className="invite-section" id="invitation-details">
-            <SectionHeading eyebrow="WITH THE BLESSINGS OF OUR FAMILIES" title="The Wedding" accent="Invitation"/>
-            <div className="invitation-message-card" data-reveal>
-              <span className="card-floral">❀</span>
-              <p className="invitation-mantra">॥ श्री गणेशाय नमः ॥</p>
-              <p>With immense joy and the blessings of our elders,</p>
-              <p>we cordially invite you and your family to grace the wedding celebrations of</p>
-              <h3>{wedding.groom.name}</h3><span className="invite-amp">&</span><h3>{wedding.bride.name}</h3>
-              <p className="invitation-last-line">Your presence will make our celebration complete.</p>
-            </div>
-          </section>
+          <InvitationShowcase/>
 
           <FamilyBlessings/>
 
           <section className="invite-section event-section" id="events">
-            <SectionHeading eyebrow="PLEASE JOIN US" title="Wedding" accent="Celebrations"/>
+            <header className="celebrations-heading">
+              <div className="celebrations-section-index"><span>03</span><i/><strong>THE CELEBRATIONS</strong></div>
+              <p className="celebrations-hindi">मंगल अवसर</p>
+              <div className="celebrations-title-row">
+                <h2>Three days.<em>Countless memories.</em></h2>
+                <p>From traditional rituals to the wedding ceremony, every gathering is a celebration of family, culture and togetherness.</p>
+              </div>
+            </header>
             <div className="event-card-list">{wedding.events.map(event=><EventCard key={event.number} event={event}/>)}</div>
             <CountDown/>
           </section>
