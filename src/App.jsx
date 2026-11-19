@@ -355,7 +355,7 @@ export default function App() {
   const [musicOn, setMusicOn] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const [showTop, setShowTop] = useState(false);
-  const musicPlayer = useRef(null);
+  const ambientAudio = useRef(null);
 
   useReveal(envelopeRevealed);
 
@@ -369,42 +369,110 @@ export default function App() {
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
   }, []);
-  const sendMusicCommand = command => {
-    const frame = musicPlayer.current;
-    if (!frame?.contentWindow) return false;
-    frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func: command, args: [] }), 'https://www.youtube.com');
-    return true;
-  };
   const startMusic = React.useCallback(() => {
-    const frame = musicPlayer.current;
-    if (frame?.contentWindow) {
-      frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), 'https://www.youtube.com');
+    let engine = ambientAudio.current;
+    if (!engine) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) { setMusicOn(false); return; }
+      const context = new AudioContextClass({ latencyHint: 'playback' });
+      const master = context.createGain();
+      const lowPass = context.createBiquadFilter();
+      lowPass.type = 'lowpass';
+      lowPass.frequency.setValueAtTime(1450, context.currentTime);
+      lowPass.Q.setValueAtTime(0.55, context.currentTime);
+      master.gain.setValueAtTime(0, context.currentTime);
+      master.connect(lowPass);
+      lowPass.connect(context.destination);
+
+      // Original, non-melodic ambient bed: a soft Sa-Pa drone with slow breathing.
+      const droneTones = [
+        { frequency: 65.41, level: 0.12, detune: -2 },
+        { frequency: 65.41, level: 0.12, detune: 2 },
+        { frequency: 98.00, level: 0.075, detune: -1 },
+        { frequency: 130.81, level: 0.055, detune: 1 },
+        { frequency: 196.00, level: 0.032, detune: -1 },
+        { frequency: 261.63, level: 0.018, detune: 1 },
+        { frequency: 392.00, level: 0.009, detune: 0 },
+      ];
+      const voices = [];
+      droneTones.forEach((tone, index) => {
+        const oscillator = context.createOscillator();
+        const voiceGain = context.createGain();
+        const slowWave = context.createOscillator();
+        const slowDepth = context.createGain();
+        oscillator.type = index < 3 ? 'sine' : 'triangle';
+        oscillator.frequency.setValueAtTime(tone.frequency, context.currentTime);
+        oscillator.detune.setValueAtTime(tone.detune, context.currentTime);
+        voiceGain.gain.setValueAtTime(tone.level, context.currentTime);
+        slowWave.type = 'sine';
+        slowWave.frequency.setValueAtTime(0.035 + index * 0.004, context.currentTime);
+        slowDepth.gain.setValueAtTime(tone.level * 0.12, context.currentTime);
+        slowWave.connect(slowDepth);
+        slowDepth.connect(voiceGain.gain);
+        oscillator.connect(voiceGain);
+        voiceGain.connect(master);
+        oscillator.start();
+        slowWave.start();
+        voices.push(oscillator, slowWave);
+      });
+
+      // A very quiet filtered air layer adds space without a beat or melody.
+      const noiseBuffer = context.createBuffer(1, context.sampleRate * 3, context.sampleRate);
+      const noiseData = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < noiseData.length; i += 1) noiseData[i] = (Math.random() * 2 - 1) * 0.35;
+      const air = context.createBufferSource();
+      const airFilter = context.createBiquadFilter();
+      const airGain = context.createGain();
+      air.buffer = noiseBuffer;
+      air.loop = true;
+      airFilter.type = 'bandpass';
+      airFilter.frequency.setValueAtTime(620, context.currentTime);
+      airFilter.Q.setValueAtTime(0.35, context.currentTime);
+      airGain.gain.setValueAtTime(0.012, context.currentTime);
+      air.connect(airFilter);
+      airFilter.connect(airGain);
+      airGain.connect(master);
+      air.start();
+      voices.push(air);
+      engine = { context, master, voices, pauseTimer: null };
+      ambientAudio.current = engine;
     }
-    setMusicOn(true);
+    if (engine.pauseTimer) { window.clearTimeout(engine.pauseTimer); engine.pauseTimer = null; }
+    engine.context.resume().then(() => {
+      const now = engine.context.currentTime;
+      engine.master.gain.cancelScheduledValues(now);
+      engine.master.gain.setTargetAtTime(0.22, now, 1.6);
+      setMusicOn(true);
+    }).catch(() => setMusicOn(false));
   }, []);
+
   const toggleMusic = () => {
-    const next = !musicOn;
-    sendMusicCommand(next ? 'playVideo' : 'pauseVideo');
-    setMusicOn(next);
+    const engine = ambientAudio.current;
+    if (!musicOn) { startMusic(); return; }
+    if (engine?.context && engine.master) {
+      const now = engine.context.currentTime;
+      engine.master.gain.cancelScheduledValues(now);
+      engine.master.gain.setTargetAtTime(0, now, 0.45);
+      engine.pauseTimer = window.setTimeout(() => {
+        if (engine.context.state === 'running') engine.context.suspend().catch(() => {});
+      }, 2200);
+    }
+    setMusicOn(false);
   };
-  const handleMusicPlayerLoad = () => { if (musicOn) sendMusicCommand('playVideo'); };
+
+  useEffect(() => () => {
+    const engine = ambientAudio.current;
+    if (!engine) return;
+    if (engine.pauseTimer) window.clearTimeout(engine.pauseTimer);
+    engine.context.close().catch(() => {});
+    ambientAudio.current = null;
+  }, []);
   const openPhoto = index => setActivePhoto(index);
   const closePhoto = () => setActivePhoto(-1);
   const nextPhoto = () => setActivePhoto(i => (i + 1) % wedding.gallery.length);
   const prevPhoto = () => setActivePhoto(i => (i - 1 + wedding.gallery.length) % wedding.gallery.length);
 
   return <>
-    <iframe
-      ref={musicPlayer}
-      className="background-music-frame"
-      title="Background Ganesh Vandana instrumental"
-      src={wedding.backgroundMusic + "?autoplay=0&controls=0&enablejsapi=1&playsinline=1&rel=0&origin=" + encodeURIComponent(window.location.origin)}
-      allow="autoplay; encrypted-media"
-      aria-hidden="true"
-      tabIndex={-1}
-      onLoad={handleMusicPlayerLoad}
-    />
-
     <div className="invite-website"><div className="page-progress" style={{ transform: `scaleX(${scrollPct})` }}/><ButterflyFlight muted={reducedMotion}/>
         <main>
           <EnvelopeOpening onReveal={revealWebsite} onStartMusic={startMusic}/>
