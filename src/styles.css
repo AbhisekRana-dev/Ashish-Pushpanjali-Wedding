@@ -1143,3 +1143,43 @@ nav.mobile-quick-dock,
     text-align:center;
   }
 }
+
+
+/* Cover the groom-first text baked into the supplied invitation artwork. */
+.editorial-card-name-reorder{
+  position:absolute;
+  z-index:2;
+  left:46%;
+  top:36.5%;
+  width:52%;
+  height:21%;
+  display:grid;
+  align-content:center;
+  justify-items:center;
+  gap:2px;
+  padding:2%;
+  text-align:center;
+  background:linear-gradient(145deg,rgba(255,246,225,.99),rgba(249,231,205,.99));
+  color:#812536;
+  font-family:var(--serif);
+}
+.editorial-card-name-reorder strong{
+  display:block;
+  max-width:100%;
+  font-size:clamp(11px,2vw,21px);
+  font-weight:500;
+  line-height:1.05;
+  letter-spacing:.025em;
+  white-space:nowrap;
+}
+.editorial-card-name-reorder i{
+  color:#c18b38;
+  font-size:clamp(12px,2vw,20px);
+  font-style:italic;
+  line-height:1;
+}
+@media(max-width:700px){
+  .editorial-card-name-reorder{gap:1px;padding:1%}
+  .editorial-card-name-reorder strong{font-size:clamp(10px,2.1vw,15px)}
+  .editorial-card-name-reorder i{font-size:12px}
+}
