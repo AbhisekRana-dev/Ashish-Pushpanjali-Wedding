@@ -1380,3 +1380,262 @@ nav.mobile-quick-dock,
   .hero-photo-pair figure img,
   .family-profile-portrait img{animation:none!important;transition:none!important}
 }
+
+
+/* Final invitation panel: replace the RSVP form with the ornate bride-family card. */
+.rsvp-invitation.closing-invitation{
+  position:relative;
+  isolation:isolate;
+  display:grid;
+  place-items:center;
+  width:100%;
+  min-height:700px;
+  padding:clamp(58px,6vw,88px) clamp(18px,5vw,64px);
+  overflow:hidden;
+  color:#fff0d5;
+  text-align:center;
+  background:
+    radial-gradient(ellipse at 50% 48%,rgba(132,35,66,.44),transparent 58%),
+    radial-gradient(ellipse at 0% 0%,rgba(227,169,90,.22),transparent 27%),
+    radial-gradient(ellipse at 100% 0%,rgba(227,169,90,.2),transparent 27%),
+    radial-gradient(ellipse at 0% 100%,rgba(217,91,83,.2),transparent 29%),
+    radial-gradient(ellipse at 100% 100%,rgba(217,91,83,.2),transparent 29%),
+    repeating-linear-gradient(135deg,transparent 0 42px,rgba(255,241,213,.022) 43px 44px),
+    linear-gradient(145deg,#4a1028 0%,#690e30 48%,#3a0b20 100%);
+}
+.rsvp-invitation.closing-invitation:before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:16px;
+  border:1px solid rgba(231,190,111,.62);
+  outline:1px solid rgba(231,190,111,.16);
+  outline-offset:5px;
+  pointer-events:none;
+}
+.rsvp-invitation.closing-invitation:after{
+  content:"✿   ❀   ✿";
+  position:absolute;
+  z-index:-1;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%);
+  color:rgba(242,197,124,.7);
+  font-size:22px;
+  letter-spacing:18px;
+  white-space:nowrap;
+  pointer-events:none;
+}
+.closing-invitation-content{
+  position:relative;
+  z-index:2;
+  width:min(100%,1120px);
+  margin:auto;
+}
+.closing-top-ornament{
+  margin:0 0 21px;
+  color:#eec879;
+  font-size:18px;
+  letter-spacing:.24em;
+  text-shadow:0 0 18px rgba(238,200,121,.3);
+}
+.closing-invitation-eyebrow{
+  display:block;
+  margin:0 auto 20px;
+  color:#f0c879;
+  font:700 12px/1.4 Arial,sans-serif;
+  letter-spacing:.32em;
+}
+.closing-invitation h2{
+  max-width:950px;
+  margin:0 auto;
+  color:#fff0d5;
+  font:italic 500 clamp(43px,6.5vw,88px)/.98 var(--serif);
+  letter-spacing:-.035em;
+  text-wrap:balance;
+  text-shadow:0 3px 18px rgba(0,0,0,.22);
+}
+.closing-invitation h2 em{
+  display:block;
+  margin-top:7px;
+  color:#f3ca79;
+  font-style:italic;
+}
+.closing-heart-flourish{
+  margin:15px auto 16px;
+  color:#eab968;
+  font:22px/1 var(--serif);
+  letter-spacing:.05em;
+}
+.closing-invitation-message{
+  max-width:790px;
+  margin:0 auto 35px;
+  color:#fff0df;
+  font:clamp(17px,1.8vw,25px)/1.5 var(--serif);
+  text-wrap:balance;
+}
+.closing-invitation-message strong{
+  color:#f4cf87;
+  font-weight:700;
+}
+.closing-event-frame{
+  position:relative;
+  max-width:990px;
+  margin:0 auto;
+  padding:9px;
+  border:2px solid rgba(219,164,77,.92);
+  border-radius:24px 5px 24px 5px;
+  box-shadow:0 0 0 5px rgba(224,171,91,.09),0 16px 38px rgba(0,0,0,.18);
+}
+.closing-event-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.closing-event-card{
+  position:relative;
+  min-width:0;
+  min-height:142px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  padding:20px 12px 17px;
+  border:1px solid #d9a65a;
+  border-radius:18px 5px 18px 5px;
+  color:#5d1830;
+  background:linear-gradient(145deg,#fff0dc 0%,#ffd9ca 52%,#fff0d8 100%);
+  box-shadow:inset 0 0 0 4px rgba(255,255,255,.34),0 5px 13px rgba(0,0,0,.12);
+}
+.closing-event-symbol{
+  display:block;
+  min-height:40px;
+  font-size:34px;
+  line-height:1;
+  filter:drop-shadow(0 3px 3px rgba(90,35,27,.18));
+}
+.closing-event-card h3{
+  margin:0;
+  color:#58152e;
+  font:700 clamp(16px,1.55vw,23px)/1.2 var(--serif);
+  text-wrap:balance;
+}
+.closing-event-card p{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  margin:0;
+  color:#77233d;
+  font:500 clamp(14px,1.35vw,19px)/1.3 var(--serif);
+  white-space:nowrap;
+}
+.closing-event-card p svg{flex:none;color:#a82a3e}
+.closing-location{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  min-width:min(390px,100%);
+  margin:25px auto 0;
+  padding:12px 27px;
+  border:1px solid #e6bd70;
+  border-radius:999px;
+  color:#5a1930;
+  background:linear-gradient(120deg,#fff0cb,#f6cf7d,#fff0ce);
+  box-shadow:0 8px 22px rgba(0,0,0,.16),inset 0 0 0 3px rgba(255,255,255,.32);
+  font:700 clamp(19px,2vw,28px)/1.2 var(--serif);
+}
+.closing-location svg{flex:none;color:#b32642;fill:rgba(179,38,66,.12)}
+.closing-procession{
+  margin:24px auto 13px;
+  color:#eec879;
+  font:20px/1 var(--serif);
+  letter-spacing:.25em;
+}
+.closing-blessing{
+  margin:0 auto 11px;
+  color:#f0ce8c;
+  font:italic 500 clamp(20px,2vw,29px)/1.3 var(--serif);
+}
+.closing-family-name{
+  width:fit-content;
+  max-width:100%;
+  margin:0 auto;
+  padding:11px clamp(18px,3vw,42px);
+  border:2px solid #d9a45b;
+  border-radius:15px 4px 15px 4px;
+  color:#641a34;
+  background:linear-gradient(120deg,#fff1d3,#f5d28e,#fff1d3);
+  box-shadow:inset 0 0 0 4px rgba(255,255,255,.25),0 7px 18px rgba(0,0,0,.18);
+  font:700 clamp(19px,2.2vw,31px)/1.25 var(--serif);
+  text-wrap:balance;
+}
+.closing-invitation-hindi{
+  margin:14px auto 0;
+  color:#e9c68b;
+  font:17px/1.4 var(--serif);
+}
+.closing-floral-corners{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+.closing-floral{
+  position:absolute;
+  top:0;
+  max-width:25%;
+  color:#f0bf7b;
+  font-size:clamp(25px,4vw,54px);
+  line-height:1.45;
+  letter-spacing:.12em;
+  opacity:.92;
+  filter:drop-shadow(0 4px 10px rgba(0,0,0,.28));
+}
+.closing-floral-left{left:0;text-align:left}
+.closing-floral-right{right:0;text-align:right}
+.closing-lantern{
+  position:absolute;
+  top:42%;
+  color:#f5cf80;
+  font-size:clamp(26px,3.8vw,49px);
+  text-shadow:0 0 20px rgba(255,194,89,.85),0 0 42px rgba(255,177,68,.4);
+  animation:closingLanternGlow 3.8s ease-in-out infinite alternate;
+}
+.closing-lantern-left{left:4%}
+.closing-lantern-right{right:4%;animation-delay:1.2s}
+@keyframes closingLanternGlow{from{opacity:.65;transform:translateY(0) scale(.95)}to{opacity:1;transform:translateY(-7px) scale(1.05)}}
+@media(max-width:700px){
+  .rsvp-invitation.closing-invitation{
+    min-height:0;
+    padding:65px 24px 74px;
+  }
+  .rsvp-invitation.closing-invitation:before{inset:9px;outline-offset:3px}
+  .closing-top-ornament{font-size:15px;margin-bottom:17px}
+  .closing-invitation-eyebrow{font-size:9px;letter-spacing:.22em;margin-bottom:17px}
+  .closing-invitation h2{font-size:clamp(39px,10.5vw,58px);line-height:1.02}
+  .closing-heart-flourish{font-size:17px;margin:13px auto}
+  .closing-invitation-message{font-size:17px;line-height:1.48;margin-bottom:25px}
+  .closing-event-frame{padding:7px;border-radius:18px 4px 18px 4px}
+  .closing-event-grid{grid-template-columns:1fr;gap:9px}
+  .closing-event-card{min-height:94px;display:grid;grid-template-columns:52px minmax(0,1fr);grid-template-rows:auto auto;justify-content:center;gap:5px 10px;padding:12px 16px;text-align:left}
+  .closing-event-symbol{grid-row:span 2;justify-self:center;align-self:center;font-size:30px;min-height:0}
+  .closing-event-card h3{font-size:19px}
+  .closing-event-card p{justify-content:flex-start;font-size:15px}
+  .closing-location{min-width:0;width:min(100%,340px);margin-top:21px;padding:11px 18px;font-size:21px}
+  .closing-procession{font-size:15px;margin:21px auto 12px}
+  .closing-blessing{font-size:21px}
+  .closing-family-name{width:100%;font-size:clamp(18px,5.2vw,24px);padding:11px 14px}
+  .closing-invitation-hindi{font-size:15px}
+  .closing-floral{max-width:29%;font-size:clamp(22px,7vw,35px)}
+  .closing-lantern{top:27%;font-size:28px}
+  .closing-lantern-left{left:2%}
+  .closing-lantern-right{right:2%}
+}
+@media(max-width:380px){
+  .rsvp-invitation.closing-invitation{padding:58px 17px 70px}
+  .closing-invitation h2{font-size:clamp(36px,10vw,45px)}
+  .closing-event-card{grid-template-columns:44px minmax(0,1fr);padding-inline:12px}
+  .closing-event-card h3{font-size:17px}
+  .closing-event-card p{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  .closing-lantern{animation:none}
+}
