@@ -535,9 +535,9 @@ export default function App() {
               <p className="hero-hindi-names">{wedding.bride.hindi} ♥ {wedding.groom.hindi}</p>
               <div className="hero-date-chip">05 · 08 · 09 <small>DECEMBER {wedding.eventYear}</small></div>
               <div className="hero-photo-pair">
-                <figure><img src={wedding.bride.photo} alt={wedding.bride.photoAlt} loading="eager" decoding="async" onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/><figcaption>THE BRIDE</figcaption></figure>
+                <figure><img src={wedding.bride.photo} alt={wedding.bride.photoAlt} loading="eager" fetchPriority="high" decoding="async" onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/><figcaption>THE BRIDE</figcaption></figure>
                 <span className="pair-heart">♥</span>
-                <figure><img src={wedding.groom.photo} alt={wedding.groom.photoAlt} loading="eager" decoding="async" onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/><figcaption>THE GROOM</figcaption></figure>
+                <figure><img src={wedding.groom.photo} alt={wedding.groom.photoAlt} loading="eager" fetchPriority="high" decoding="async" onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/><figcaption>THE GROOM</figcaption></figure>
               </div>
               <p className="hero-verse">With joy and pride, we invite you to celebrate our beloved daughter, Pushpanjali, as she begins a beautiful new journey with Ashish.<br/>आप सपरिवार पधारकर नवदंपति को अपना आशीर्वाद दें।</p>
             </div>
