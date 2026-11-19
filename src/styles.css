@@ -667,3 +667,14 @@ body{
 @media(prefers-reduced-motion:reduce){
   .envelope-scroll-section .envelope-scroll-hint{animation:none}
 }
+
+
+/* Permanent removal: never render the old four-item bottom navigation dock. */
+.mobile-quick-dock,
+nav.mobile-quick-dock,
+[aria-label="Wedding quick navigation"].mobile-quick-dock{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
