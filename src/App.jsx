@@ -115,7 +115,7 @@ function EnvelopeOpening() {
       <span>WITH LOVE, ASHISH & PUSHPANJALI</span>
       <span className="tiny-flourish">✦</span>
     </div>
-    <a className="envelope-scroll-hint" href="#home">SCROLL TO EXPLORE <ChevronDown size={15}/></a>
+    <div className="envelope-scroll-hint" aria-hidden="true">SCROLL TO EXPLORE <ChevronDown size={15}/></div>
   </section>;
 }
 
@@ -338,7 +338,7 @@ export default function App() {
               </div>
               <p className="hero-verse">Two hearts, one promise, a lifetime of togetherness.<br/>We request the honour of your presence and blessings.</p>
             </div>
-            <a href="#invitation-details" className="scroll-invite">SCROLL TO EXPLORE <ChevronDown size={15}/></a>
+            <span className="scroll-invite" aria-hidden="true">SCROLL TO EXPLORE <ChevronDown size={15}/></span>
           </section>
 
           <section className="invite-section" id="invitation-details">
