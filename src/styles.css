@@ -1183,3 +1183,68 @@ nav.mobile-quick-dock,
   .editorial-card-name-reorder strong{font-size:clamp(10px,2.1vw,15px)}
   .editorial-card-name-reorder i{font-size:12px}
 }
+
+
+/* Gentle, elegant motion for the couple and family photographs. */
+.hero-photo-pair figure{
+  animation: weddingPortraitFloat 6.4s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+.hero-photo-pair figure:nth-of-type(2){animation-delay:-3.2s}
+.hero-photo-pair figure img{
+  transition:filter .7s ease, object-position 1s ease;
+  animation: weddingPhotoGlow 7s ease-in-out infinite alternate;
+}
+.family-profile-portrait{
+  animation: weddingPortraitFloat 6.8s ease-in-out infinite;
+  background-repeat:no-repeat;
+  background-size:625% auto;
+  will-change:transform,box-shadow;
+}
+.family-profile-portrait.portrait-groom{animation-delay:-3.4s}
+.family-profile-portrait.portrait-bride{animation-delay:-1.7s}
+.family-profile-portrait:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.32) 46%,transparent 62%);
+  transform:translateX(-130%);
+  animation:weddingPhotoSheen 7.5s ease-in-out infinite;
+}
+.editorial-couple-photo-link{
+  perspective:900px;
+}
+.editorial-couple-photo{
+  transform-origin:center center;
+  animation:weddingCardBreath 12s ease-in-out infinite alternate;
+}
+@keyframes weddingPortraitFloat{
+  0%,100%{transform:translate3d(0,0,0);box-shadow:0 12px 28px rgba(79,34,45,.15),inset 0 0 0 6px rgba(255,248,231,.82)}
+  50%{transform:translate3d(0,-7px,0);box-shadow:0 20px 34px rgba(79,34,45,.22),inset 0 0 0 6px rgba(255,248,231,.9)}
+}
+@keyframes weddingPhotoGlow{
+  0%{filter:saturate(1) contrast(1)}
+  100%{filter:saturate(1.12) contrast(1.035)}
+}
+@keyframes weddingPhotoSheen{
+  0%,30%{transform:translateX(-130%)}
+  62%,100%{transform:translateX(130%)}
+}
+@keyframes weddingCardBreath{
+  from{transform:scale(1)}
+  to{transform:scale(1.018)}
+}
+@media(hover:hover){
+  .hero-photo-pair figure:hover,
+  .family-profile-portrait:hover{animation-play-state:paused}
+  .hero-photo-pair figure:hover img{filter:saturate(1.18) contrast(1.06)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-photo-pair figure,
+  .hero-photo-pair figure img,
+  .family-profile-portrait,
+  .family-profile-portrait:after,
+  .editorial-couple-photo{animation:none!important;transition:none!important}
+}
