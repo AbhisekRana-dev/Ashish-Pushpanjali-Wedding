@@ -375,12 +375,17 @@ export default function App() {
     frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func: command, args: [] }), 'https://www.youtube.com');
     return true;
   };
-  const startMusic = React.useCallback(() => { setMusicOn(true); }, []);
+  const startMusic = React.useCallback(() => {
+    const frame = musicPlayer.current;
+    if (frame?.contentWindow) {
+      frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), 'https://www.youtube.com');
+    }
+    setMusicOn(true);
+  }, []);
   const toggleMusic = () => {
     const next = !musicOn;
     sendMusicCommand(next ? 'playVideo' : 'pauseVideo');
     setMusicOn(next);
-    document.getElementById('music')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
   const handleMusicPlayerLoad = () => { if (musicOn) sendMusicCommand('playVideo'); };
   const openPhoto = index => setActivePhoto(index);
@@ -389,6 +394,16 @@ export default function App() {
   const prevPhoto = () => setActivePhoto(i => (i - 1 + wedding.gallery.length) % wedding.gallery.length);
 
   return <>
+    <iframe
+      ref={musicPlayer}
+      className="background-music-frame"
+      title="Background Ganesh Vandana instrumental"
+      src={wedding.backgroundMusic + "?autoplay=0&controls=0&enablejsapi=1&playsinline=1&rel=0&origin=" + encodeURIComponent(window.location.origin)}
+      allow="autoplay; encrypted-media"
+      aria-hidden="true"
+      tabIndex={-1}
+      onLoad={handleMusicPlayerLoad}
+    />
 
     <div className="invite-website"><div className="page-progress" style={{ transform: `scaleX(${scrollPct})` }}/><ButterflyFlight muted={reducedMotion}/>
         <main>
@@ -410,30 +425,6 @@ export default function App() {
               <p className="hero-verse">Two hearts, one promise, a lifetime of togetherness.<br/>We request the honour of your presence and blessings.</p>
             </div>
             <span className="scroll-invite" aria-hidden="true">SCROLL TO EXPLORE <ChevronDown size={15}/></span>
-          </section>
-
-          <section className="wedding-song-section" id="music" aria-label="Ganesh Vandana instrumental music">
-            <div className="wedding-song-card" data-reveal>
-              <span className="wedding-song-ornament">॥ ॐ गं गणपतये नमः ॥</span>
-              <span className="section-eyebrow">A SACRED BEGINNING</span>
-              <h2>श्री गणेश <em>वंदना</em></h2>
-              <p className="wedding-song-subtitle">A peaceful flute instrumental inspired by Ganesh Vandana — a gentle blessing to begin the wedding celebrations</p>
-              <div className="wedding-song-player">
-                <iframe
-                  ref={musicPlayer}
-                  title="Divine Om Gan Ganapataye Flute Instrumental — Flutewala Music"
-                  src={wedding.backgroundMusic + "?autoplay=1&controls=1&enablejsapi=1&playsinline=1&rel=0&origin=" + encodeURIComponent(window.location.origin)}
-                  allow="autoplay; encrypted-media; picture-in-picture"
-                  allowFullScreen
-                  onLoad={handleMusicPlayerLoad}
-                />
-              </div>
-              <p className="wedding-song-credit">ॐ गं गणपतये नमः · Divine Om Gan Ganapataye · Flute instrumental by Flutewala Music</p>
-              <button type="button" className="wedding-song-toggle" onClick={toggleMusic}>
-                {musicOn ? <Pause size={17}/> : <Play size={17}/>}
-                {musicOn ? 'PAUSE VANDANA' : 'PLAY VANDANA'}
-              </button>
-            </div>
           </section>
 
           <section className="invite-section" id="invitation-details">
