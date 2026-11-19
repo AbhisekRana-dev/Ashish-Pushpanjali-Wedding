@@ -1,6 +1,6 @@
 export const wedding = {
   eventYear: 2026,
-  invitationCardImage: '/images/couple-invitation.webp',
+  invitationCardImage: '/images/couple-invitation.avif',
   brideSide: {
     perspectiveLabel: "FROM THE BRIDE'S FAMILY",
     envelopeByline: "WITH LOVE FROM PUSHPANJALI'S FAMILY",
