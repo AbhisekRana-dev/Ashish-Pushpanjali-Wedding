@@ -117,9 +117,9 @@ function EnvelopeOpening({ onReveal, onStartMusic }) {
         <div className="paper-floral-corner top-right">❀</div>
         <span className="paper-mantra">॥ श्री गणेशाय नमः ॥</span>
         <span className="paper-caption">THE WEDDING CELEBRATION OF</span>
-        <strong>{wedding.groom.name}</strong>
-        <i className="paper-amp">&</i>
         <strong>{wedding.bride.name}</strong>
+        <i className="paper-amp">&</i>
+        <strong>{wedding.groom.name}</strong>
         <span className="paper-date">05 · 08 · 09 DECEMBER {wedding.eventYear}</span>
         <span className="paper-venue">DARBHANGA · BIHAR</span>
       </div>
@@ -145,7 +145,7 @@ function EnvelopeOpening({ onReveal, onStartMusic }) {
     </div>
     <div className="envelope-under-copy">
       <span className="tiny-flourish">✦</span>
-      <span>WITH LOVE, ASHISH & PUSHPANJALI</span>
+      <span>{wedding.brideSide.envelopeByline}</span>
       <span className="tiny-flourish">✦</span>
     </div>
     <div className="envelope-scroll-hint" aria-hidden="true">
@@ -190,7 +190,7 @@ function EventCard({ event }) {
     const end = new Date(Date.UTC(year, month - 1, day + 1)).toISOString().slice(0, 10).replaceAll('-', '');
     const date = event.isoDate.replaceAll('-', '');
     const safe = value => String(value || '').replace(/\\/g, '\\\\').replace(/[,;]/g, '\\$&').replace(/\n/g, '\\n');
-    const content = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Ashish and Pushpanjali//EN', 'BEGIN:VEVENT', `UID:${event.number}-${date}@ashish-pushpanjali`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z')}`, `DTSTART;VALUE=DATE:${date}`, `DTEND;VALUE=DATE:${end}`, `SUMMARY:${safe(event.name)}`, `LOCATION:${safe(event.venue)}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    const content = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Pushpanjali and Ashish//EN', 'BEGIN:VEVENT', `UID:${event.number}-${date}@pushpanjali-ashish`, `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z')}`, `DTSTART;VALUE=DATE:${date}`, `DTEND;VALUE=DATE:${end}`, `SUMMARY:${safe(event.name)}`, `LOCATION:${safe(event.venue)}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
     const url = URL.createObjectURL(new Blob([content], { type: 'text/calendar' }));
     const link = document.createElement('a'); link.href = url; link.download = `${event.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.ics`; link.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 1500);
@@ -214,23 +214,67 @@ function EventCard({ event }) {
 }
 
 function InvitationShowcase() {
+  const shareUrl = 'https://wa.me/?text=' + encodeURIComponent(wedding.brideSide.whatsappMessage);
   return <section className="invite-section invitation-showcase-section" id="invitation">
-    <SectionHeading eyebrow="THE WEDDING INVITATION" title="A Beautiful" accent="Beginning"/>
+    <SectionHeading eyebrow="AN INVITATION FROM OUR FAMILY" title="A Beautiful" accent="Beginning"/>
     <figure className="editorial-preview editorial-preview-photo" data-reveal>
       <a className="editorial-couple-photo-link" href={wedding.invitationCardImage} target="_blank" rel="noreferrer" aria-label="Open the full wedding invitation card">
-        <img className="editorial-couple-photo" src={wedding.invitationCardImage} alt="Ashish Kumar Gupta and Pushpanjali Kumari together in wedding attire, with their wedding dates and Darbhanga location" loading="lazy"/>
+        <img className="editorial-couple-photo" src={wedding.invitationCardImage} alt="Wedding invitation for Pushpanjali Kumari and Ashish Kumar Gupta, with their wedding dates and Darbhanga location" loading="lazy"/>
         <span className="editorial-preview-open">OPEN INVITATION <ArrowUpRight size={14}/></span>
       </a>
-      <figcaption><span>॥ श्री गणेशाय नमः ॥</span><small>A CELEBRATION OF LOVE · {wedding.eventYear}</small></figcaption>
+      <figcaption><span>॥ श्री गणेशाय नमः ॥</span><small>WITH LOVE FROM PUSHPANJALI'S FAMILY</small></figcaption>
     </figure>
+    <div className="editorial-actions editorial-share-actions">
+      <a className="editorial-primary-action" href={shareUrl} target="_blank" rel="noreferrer">
+        SHARE OUR INVITATION ON WHATSAPP <Share2 size={15}/>
+      </a>
+    </div>
   </section>;
 }
-
 function FamilyBlessings() {
-  return <section className="family-composition-section" aria-label="The two families" id="families">
-    <a className="family-composition-link" href="/images/family-composition.webp" target="_blank" rel="noreferrer" aria-label="Open the full family celebration portrait">
-      <img className="family-composition-image" src="/images/family-composition.webp" alt="Wedding family portrait composition showing Ashish and Pushpanjali, their parents and the heading Two Families One Celebration" loading="lazy"/>
-    </a>
+  return <section className="family-blessings-section" aria-label="Pushpanjali's family and the groom's family" id="families">
+    <div className="family-section-index"><span>02</span><i/><strong>OUR FAMILIES</strong></div>
+    <div className="family-editorial-heading" data-reveal>
+      <span className="family-hindi-kicker">शुभारम्भ</span>
+      <h2>Our Beloved Daughter.<em>Two Families, One Celebration.</em></h2>
+      <p>{wedding.brideSide.familyIntroduction}</p>
+    </div>
+    <div className="family-blessing-grid">
+      <article className="family-blessing-card bride-family" data-reveal>
+        <span className="family-card-kicker">OUR BELOVED DAUGHTER</span>
+        <span className="family-card-flower" aria-hidden="true">✿</span>
+        <div className="family-profile-portrait portrait-bride" role="img" aria-label={wedding.bride.photoAlt}>
+          <small>THE BRIDE</small>
+        </div>
+        <h3>{wedding.bride.name}</h3>
+        <p className="family-card-hindi">{wedding.bride.hindi}</p>
+        <div className="family-divider">✧</div>
+        <p className="family-parent-name">{wedding.bride.father}</p>
+        <p className="family-card-hindi">{wedding.bride.fatherHindi}</p>
+        <p className="family-parent-name">{wedding.bride.mother}</p>
+        <p className="family-card-hindi">{wedding.bride.motherHindi}</p>
+      </article>
+      <div className="family-union-mark" aria-label="Together in marriage">
+        <span><Heart size={22} fill="currentColor" strokeWidth={1.2}/></span>
+        <strong>बंधन</strong>
+        <small>TOGETHER</small>
+      </div>
+      <article className="family-blessing-card groom-family" data-reveal>
+        <span className="family-card-kicker">THE GROOM & HIS FAMILY</span>
+        <span className="family-card-flower" aria-hidden="true">✿</span>
+        <div className="family-profile-portrait portrait-groom" role="img" aria-label={wedding.groom.photoAlt}>
+          <small>THE GROOM</small>
+        </div>
+        <h3>{wedding.groom.name}</h3>
+        <p className="family-card-hindi">{wedding.groom.hindi}</p>
+        <div className="family-divider">✧</div>
+        <p className="family-parent-name">{wedding.groom.father}</p>
+        <p className="family-card-hindi">{wedding.groom.fatherHindi}</p>
+        <p className="family-parent-name">{wedding.groom.mother}</p>
+        <p className="family-card-hindi">{wedding.groom.motherHindi}</p>
+      </article>
+    </div>
+    <p className="family-blessing-line"><span>✿</span> May the blessings of both families guide their new journey <span>✿</span></p>
   </section>;
 }
 function Gallery({ onOpen }) {
@@ -267,10 +311,11 @@ function Venue() {
   const url = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('M.G. College, Sundarpur, Darbhanga, Bihar');
   return <section className="venue-panel" id="venue" data-reveal>
     <div className="venue-map-mark"><MapPin size={27}/></div>
-    <span className="section-eyebrow">WHERE WE SAY I DO</span>
-    <h2>A Place for <em>Our Forever</em></h2>
+    <span className="section-eyebrow">THE WEDDING CELEBRATION</span>
+    <h2>Where Our <em>Families Unite</em></h2>
     <strong>{address}</strong>
     <p>एम.जी. कॉलेज, सुंदरपुर, दरभंगा</p>
+    <p>Our family looks forward to welcoming you here for the wedding celebration.</p>
     <a href={url} target="_blank" rel="noreferrer">VIEW DIRECTIONS <ArrowUpRight size={14}/></a>
   </section>;
 }
@@ -295,7 +340,7 @@ function RSVP() {
   return <section className="rsvp-invitation" id="rsvp">
     <span className="section-eyebrow">A REPLY WOULD MEAN THE WORLD</span>
     <h2>Will You <em>Join Us?</em></h2>
-    <p>We would be so happy to celebrate this special day with you.</p>
+    <p>We would be honoured to have you join our daughter Pushpanjali and Ashish for their wedding celebrations.</p>
     {done ? <div className="rsvp-confirmation" role="status"><Check size={24}/><h3>Thank you, {form.name}!</h3><p>Your response is ready to share with the family.</p><button type="button" onClick={copy}><Copy size={14}/>{copied ? 'COPIED' : 'COPY RSVP DETAILS'}</button><button type="button" className="edit-rsvp" onClick={() => setDone(false)}>EDIT RESPONSE</button></div> :
       <form className="rsvp-invitation-form" onSubmit={submit}>
         <label>YOUR NAME<input value={form.name} onChange={change('name')} placeholder="Your full name" maxLength={100} required/></label>
@@ -325,7 +370,7 @@ function BlessingForm() {
     setName(''); setMessage('');
   };
   return <section className="wishes-section" id="wishes">
-    <SectionHeading eyebrow="A LITTLE LOVE FROM YOU" title="Your Wishes" accent="Our Treasure"/>
+    <SectionHeading eyebrow="BLESSINGS FOR OUR BELOVED DAUGHTER" title="Your Wishes" accent="Our Treasure"/>
     <form className="wish-form" onSubmit={submit}>
       <input value={name} onChange={e => setName(e.target.value)} maxLength={50} placeholder="Your name" required aria-label="Your name"/>
       <textarea value={message} onChange={e => setMessage(e.target.value)} maxLength={220} rows={3} placeholder="Leave a lovely message..." required aria-label="Your message"/>
@@ -340,7 +385,7 @@ function Footer() {
   return <footer className="invite-footer">
     <div className="footer-flower">✿</div>
     <p>WITH LOVE & BLESSINGS</p>
-    <h2>{wedding.groom.name.split(' ')[0]} <em>&</em> {wedding.bride.name.split(' ')[0]}</h2>
+    <h2>{wedding.bride.name.split(' ')[0]} <em>&</em> {wedding.groom.name.split(' ')[0]}</h2>
     <span>05 · 08 · 09 DECEMBER {wedding.eventYear}</span>
     <small>MADE WITH LOVE · DARBHANGA, BIHAR</small>
   </footer>;
@@ -482,16 +527,16 @@ export default function App() {
             <Petals muted={reducedMotion}/>
             <div className="hero-card-art" data-reveal>
               <span className="hero-small-mantra">॥ श्री गणेशाय नमः ॥</span>
-              <span className="section-eyebrow">TOGETHER WITH OUR FAMILIES</span>
-              <h1>{wedding.groom.name}<em>&</em>{wedding.bride.name}</h1>
-              <p className="hero-hindi-names">{wedding.groom.hindi} ♥ {wedding.bride.hindi}</p>
+              <span className="section-eyebrow">{wedding.brideSide.perspectiveLabel}</span>
+              <h1>{wedding.bride.name}<em>&</em>{wedding.groom.name}</h1>
+              <p className="hero-hindi-names">{wedding.bride.hindi} ♥ {wedding.groom.hindi}</p>
               <div className="hero-date-chip">05 · 08 · 09 <small>DECEMBER {wedding.eventYear}</small></div>
               <div className="hero-photo-pair">
-                <figure><img src={wedding.groom.photo} alt={wedding.groom.photoAlt} onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/><figcaption>THE GROOM</figcaption></figure>
+                <figure><img src={wedding.bride.photo} alt={wedding.bride.photoAlt} style={{ objectPosition: '94% 38%', transform: 'scale(2.3)' }} onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/><figcaption>THE BRIDE</figcaption></figure>
                 <span className="pair-heart">♥</span>
-                <figure><img src={wedding.bride.photo} alt={wedding.bride.photoAlt} onError={e=>e.currentTarget.style.opacity='0'}/><figcaption>THE BRIDE</figcaption></figure>
+                <figure><img src={wedding.groom.photo} alt={wedding.groom.photoAlt} style={{ objectPosition: '13% 38%', transform: 'scale(2.3)' }} onError={e=>{e.currentTarget.onerror=null;e.currentTarget.src='/images/wedding-placeholder.svg';}}/><figcaption>THE GROOM</figcaption></figure>
               </div>
-              <p className="hero-verse">Two hearts, one promise, a lifetime of togetherness.<br/>We request the honour of your presence and blessings.</p>
+              <p className="hero-verse">With joy and pride, we invite you to celebrate our beloved daughter, Pushpanjali, as she begins a beautiful new journey with Ashish.<br/>आप सपरिवार पधारकर नवदंपति को अपना आशीर्वाद दें।</p>
             </div>
             <span className="scroll-invite" aria-hidden="true">SCROLL TO EXPLORE <ChevronDown size={15}/></span>
           </section>
@@ -506,7 +551,7 @@ export default function App() {
               <p className="celebrations-hindi">मंगल अवसर</p>
               <div className="celebrations-title-row">
                 <h2>Three days.<em>Countless memories.</em></h2>
-                <p>From traditional rituals to the wedding ceremony, every gathering is a celebration of family, culture and togetherness.</p>
+                <p>{wedding.brideSide.eventsIntroduction}</p>
               </div>
             </header>
             <div className="event-card-list">{wedding.events.map(event=><EventCard key={event.number} event={event}/>)}</div>
