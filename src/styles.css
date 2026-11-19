@@ -701,3 +701,36 @@ nav.mobile-quick-dock,
   .butterfly-flight{z-index:14}
   .flying-butterfly{opacity:.76}
 }
+
+
+/* Soft floral mandala watermark beneath the invitation wording */
+.invitation-message-card{
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 50%,rgba(255,249,235,.2),transparent 60%),
+    linear-gradient(135deg,#fff9ed,#f8e7d0 52%,#f1d6d6);
+}
+.invitation-message-card:after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  pointer-events:none;
+  inset:0;
+  background-image:url('/images/invitation-watermark.svg');
+  background-repeat:no-repeat;
+  background-position:center center;
+  background-size:min(66%,430px) auto;
+  opacity:.14;
+  mix-blend-mode:multiply;
+}
+.invitation-message-card > *{
+  position:relative;
+  z-index:1;
+}
+@media(max-width:640px){
+  .invitation-message-card:after{
+    background-size:82% auto;
+    opacity:.12;
+  }
+}
