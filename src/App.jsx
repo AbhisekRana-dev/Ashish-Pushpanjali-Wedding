@@ -18,18 +18,6 @@ function Petals({ muted = false }) {
   </div>;
 }
 
-function useReducedMotion() {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const media = window.matchMedia?.('(prefers-reduced-motion: reduce)');
-    if (!media) return;
-    const update = () => setReduced(media.matches);
-    update();
-    media.addEventListener?.('change', update);
-    return () => media.removeEventListener?.('change', update);
-  }, []);
-  return reduced;
-}
 
 function useReveal(enabled) {
   useEffect(() => {
@@ -50,26 +38,6 @@ function useReveal(enabled) {
     nodes.forEach(node => observer.observe(node));
     return () => observer.disconnect();
   }, [enabled]);
-}
-
-function EnvelopeIntro({ onContinue, reducedMotion }) {
-  useEffect(() => {
-    if (reducedMotion) { onContinue(); return; }
-    const timers = [
-      window.setTimeout(() => document.querySelector('.envelope-stage')?.classList.add('is-opening'), 650),
-      window.setTimeout(() => document.querySelector('.envelope-stage')?.classList.add('card-is-up'), 1500),
-      window.setTimeout(onContinue, 3100),
-    ];
-    return () => timers.forEach(window.clearTimeout);
-  }, [onContinue, reducedMotion]);
-  return <main className="envelope-intro auto-envelope-intro" aria-label="Wedding invitation opening automatically">
-    <Petals muted={reducedMotion}/>
-    <div className="envelope-intro-copy"><span className="intro-overline">A LITTLE SOMETHING, SEALED WITH LOVE</span><h1>A Special Invitation <em>For You</em></h1><p>Your invitation is opening</p></div>
-    <div className="envelope-stage"><div className="envelope-glow"/>
-      <div className="invitation-paper"><div className="paper-floral-corner top-left">✿</div><div className="paper-floral-corner top-right">❀</div><span className="paper-mantra">॥ श्री गणेशाय नमः ॥</span><span className="paper-caption">THE WEDDING CELEBRATION OF</span><strong>{wedding.groom.name}</strong><i className="paper-amp">&</i><strong>{wedding.bride.name}</strong><span className="paper-date">05 · 08 · 09 DECEMBER {wedding.eventYear}</span><span className="paper-venue">DARBHANGA · BIHAR</span></div>
-      <div className="envelope-body"><div className="envelope-texture"/><div className="envelope-back-fold"/><div className="envelope-pocket-left"/><div className="envelope-pocket-right"/><div className="envelope-pocket-bottom"/><div className="envelope-flap"><span/></div><div className="gold-wax-seal" aria-hidden="true"><span className="wax-edge"/><span className="wax-center"><Heart size={25} fill="currentColor" strokeWidth={1.2}/></span></div></div>
-    </div><div className="envelope-under-copy"><span className="tiny-flourish">✦</span><span>WITH LOVE, ASHISH & PUSHPANJALI</span><span className="tiny-flourish">✦</span></div>
-  </main>;
 }
 
 
@@ -240,7 +208,6 @@ function Footer() {
 }
 
 export default function App() {
-  const reducedMotion = useReducedMotion();
   const [activePhoto, setActivePhoto] = useState(-1);
   const [showBlessing, setShowBlessing] = useState(false);
   const [blessing, setBlessing] = useState(0);
