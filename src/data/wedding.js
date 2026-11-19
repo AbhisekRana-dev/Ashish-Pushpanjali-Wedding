@@ -1,7 +1,7 @@
 export const wedding = {
   eventYear: 2026,
   invitationCardImage: '/images/demo-invitation-card.svg',
-  backgroundMusic: '/audio/ganesh-vandana-inspired-instrumental.mp3',
+  backgroundMusic: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2d/Aarti_Puja%2C_Ganpati_Vandana.ogg/Aarti_Puja%2C_Ganpati_Vandana.ogg.mp3?download=',
   bride: {
     name: 'PUSHPANJALI KUMARI',
     hindi: 'पुष्पांजलि कुमारी',
@@ -25,7 +25,7 @@ export const wedding = {
   events: [
     { date: '5TH DECEMBER', isoDate: '2026-12-05', dateHindi: '५ दिसंबर', name: 'MATKOR PUJA', nameHindi: 'मटकोर पूजा', venue: 'MY HOME, MO-CO-OPERATIVE COLONY, NEAR JP CHOWK, DARBHANGA', venueHindi: 'निवास स्थान, मो-कोऑपरेटिव कॉलोनी, जे.पी. चौक के निकट, दरभंगा', searchVenue: 'Mo Co-operative Colony, near JP Chowk, Darbhanga, Bihar', theme: 'saffron', number: '01', icon: '✿', image: 'https://cdn.venuelook.com/blog/personal-touches-with-floral-d-cor-9418bc42-83ab-4f77-b498-ab5bd706502a.jpg', imageAlt: 'Marigold and yellow floral ceremony canopy' },
     { date: '8TH DECEMBER', isoDate: '2026-12-08', dateHindi: '८ दिसंबर', name: 'HALDI & MEHNDI', nameHindi: 'हल्दी एवं मेहंदी', venue: 'MY HOME, MO-CO-OPERATIVE COLONY, NEAR JP CHOWK, DARBHANGA', venueHindi: 'निवास स्थान, मो-कोऑपरेटिव कॉलोनी, जे.पी. चौक के निकट, दरभंगा', searchVenue: 'Mo Co-operative Colony, near JP Chowk, Darbhanga, Bihar', theme: 'pink', number: '02', icon: '❀', image: 'https://dy3rma73kowlp.cloudfront.net/uploads/2025/11/Mehndi-Function-Decoration-Ideas-At-Home-1.jpg', imageAlt: 'Colorful floral mehndi ceremony seating and umbrellas' },
-    { date: '9TH DECEMBER', isoDate: '2026-12-09', dateHindi: '९ दिसंबर', name: 'WEDDING', nameHindi: 'शुभ विवाह', venue: 'M.G. COLLEGE, SUNDARPUR, DARBHANGA', venueHindi: 'एम.जी. कॉलेज, सुंदरपुर, दरभंगा', searchVenue: 'M.G. College, Sundarpur, Darbhanga, Bihar', theme: 'wine', number: '03', icon: '❋', image: 'https://cdn0.weddingwire.in/vendor/5395/3_2/960/jpg/wedding-decoration-dreamzkrraft-wedding-decor-2_15_305395-161424807587730.jpeg', imageAlt: 'Sample floral wedding mandap illuminated at twilight' },
+    { date: '9TH DECEMBER', isoDate: '2026-12-09', dateHindi: '९ दिसंबर', name: 'WEDDING', nameHindi: 'शुभ विवाह', venue: 'M.G. COLLEGE, SUNDARPUR, DARBHANGA', venueHindi: 'एम.जी. कॉलेज, सुंदरपुर, दरभंगा', searchVenue: 'M.G. College, Sundarpur, Darbhanga, Bihar', theme: 'wine', number: '03', icon: '❋', image: 'https://images.pexels.com/photos/39797465/pexels-photo-39797465.jpeg?auto=compress&cs=tinysrgb&w=900', imageAlt: 'Sample floral wedding mandap illuminated at twilight' },
   ],
   gallery: [
     { title: 'A little Mithila charm', subtitle: 'मिथिला की सांस्कृतिक छटा', image: 'https://j3k5s6s3.rocketcdn.me/wp-content/uploads/2021/08/RamSitaVivah-scaled.jpg', alt: 'Traditional Madhubani-style wedding painting', className: 'gallery-tall' },
