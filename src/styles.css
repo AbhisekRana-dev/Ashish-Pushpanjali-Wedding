@@ -200,7 +200,7 @@ body{background:linear-gradient(180deg,#FFF8F0 0%,#F4C7D4 26%,#E9DDF2 52%,#F7EBD
 html{scroll-behavior:smooth;scroll-padding-top:18px;scrollbar-color:#d987a5 #fff0f4}
 body{background:radial-gradient(circle at 5% 8%,rgba(246,191,210,.48),transparent 25rem),radial-gradient(circle at 96% 26%,rgba(205,183,233,.45),transparent 27rem),linear-gradient(180deg,#fff8ee 0%,#fff1f5 35%,#f7eafa 70%,#fff7eb 100%);color:#633c51;overflow-x:hidden}
 button,a{-webkit-tap-highlight-color:transparent}
-.invite-website{background:transparent;overflow:clip;padding-bottom:92px}
+.invite-website{background:transparent;overflow:clip;padding-bottom:24px}
 .page-progress{height:4px;background:linear-gradient(90deg,#d94e83,#f5b64d,#9f6dc7);box-shadow:0 1px 8px #d94e8340}
 .section-eyebrow{color:#a74470;font-size:9px;letter-spacing:.24em}
 .content-heading{margin-bottom:30px}.content-heading h2{color:#743454}.content-heading h2 em{color:#cc5d88}.heading-flourish{color:#d4a449;font-size:17px}
@@ -372,4 +372,43 @@ body{
   width:1px!important;height:1px!important;min-width:1px!important;min-height:1px!important;
   opacity:0!important;pointer-events:none!important;border:0!important;
   clip-path:inset(50%)!important;overflow:hidden!important;
+}
+
+
+/* Minimal floating music toggle; the navigation bar is intentionally removed. */
+.wedding-floating-controls{
+  position:fixed;z-index:110;right:16px;
+  bottom:max(16px,env(safe-area-inset-bottom));
+  display:flex;align-items:center;justify-content:flex-end;gap:10px;
+  pointer-events:none;
+}
+.music-float-button,.wedding-floating-controls .top-action{
+  pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;
+  min-height:52px;border:1px solid rgba(222,185,116,.72);
+  color:#f8e9ca;background:rgba(64,18,37,.94);
+  box-shadow:0 8px 24px rgba(34,8,22,.27);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  cursor:pointer;touch-action:manipulation;
+}
+.music-float-button{
+  gap:12px;padding:0 20px;border-radius:999px;
+  font:700 10px/1 Arial,sans-serif;letter-spacing:.14em;
+}
+.music-float-button svg{flex:none}
+.music-float-button.music-is-on{
+  color:#ffe4a7;border-color:#d8a755;background:rgba(103,30,54,.96);
+}
+.wedding-floating-controls .top-action{
+  position:static;right:auto;bottom:auto;width:52px;height:52px;min-width:52px;
+  border-radius:50%;border-color:rgba(222,185,116,.72);
+  background:rgba(64,18,37,.94);color:#f8e9ca;
+}
+.music-float-button:active,.wedding-floating-controls .top-action:active{transform:scale(.96)}
+@media(max-width:700px){
+  .wedding-floating-controls{right:12px;bottom:max(12px,env(safe-area-inset-bottom));gap:8px}
+  .music-float-button{min-height:48px;padding:0 16px;font-size:9px;gap:10px}
+  .wedding-floating-controls .top-action{width:48px;height:48px;min-width:48px}
+}
+@media(prefers-reduced-motion:reduce){
+  .music-float-button:active,.wedding-floating-controls .top-action:active{transform:none}
 }
