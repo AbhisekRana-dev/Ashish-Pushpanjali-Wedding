@@ -678,3 +678,26 @@ nav.mobile-quick-dock,
   opacity:0!important;
   pointer-events:none!important;
 }
+
+
+/* Eight staggered butterfly paths so several are visible across the page together. */
+.butterfly-flight{z-index:14}
+.flying-butterfly{opacity:.88;filter:drop-shadow(0 3px 7px rgba(72,21,66,.25))}
+.butterfly-6{filter:hue-rotate(75deg) saturate(1.2) drop-shadow(0 3px 6px rgba(72,21,66,.24))}
+.butterfly-7{filter:hue-rotate(205deg) saturate(1.25) drop-shadow(0 3px 6px rgba(72,21,66,.24))}
+.butterfly-8{filter:hue-rotate(285deg) saturate(1.18) drop-shadow(0 3px 6px rgba(72,21,66,.24))}
+.butterfly-2,.butterfly-4,.butterfly-6,.butterfly-8{
+  animation-name:butterfly-drift-alt;
+}
+@keyframes butterfly-drift-alt{
+  0%{transform:translate3d(-10vw,6vh,0) rotate(15deg) scale(.82)}
+  18%{transform:translate3d(12vw,-10vh,0) rotate(-12deg) scale(1.04)}
+  39%{transform:translate3d(36vw,5vh,0) rotate(10deg) scale(.94)}
+  61%{transform:translate3d(60vw,-12vh,0) rotate(-17deg) scale(1.08)}
+  82%{transform:translate3d(84vw,8vh,0) rotate(12deg) scale(.96)}
+  100%{transform:translate3d(112vw,-6vh,0) rotate(-10deg) scale(.84)}
+}
+@media(max-width:700px){
+  .butterfly-flight{z-index:14}
+  .flying-butterfly{opacity:.76}
+}
