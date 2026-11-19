@@ -41,6 +41,81 @@ function useReveal(enabled) {
 }
 
 
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (!media) return;
+    const update = () => setReduced(media.matches);
+    update();
+    media.addEventListener?.('change', update);
+    return () => media.removeEventListener?.('change', update);
+  }, []);
+  return reduced;
+}
+
+function EnvelopeOpening() {
+  const reducedMotion = useReducedMotion();
+  const [opened, setOpened] = useState(false);
+  const [cardUp, setCardUp] = useState(false);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setOpened(true);
+      setCardUp(true);
+      return;
+    }
+    const openTimer = window.setTimeout(() => setOpened(true), 900);
+    const cardTimer = window.setTimeout(() => setCardUp(true), 2050);
+    return () => {
+      window.clearTimeout(openTimer);
+      window.clearTimeout(cardTimer);
+    };
+  }, [reducedMotion]);
+
+  return <section className="envelope-scroll-section" aria-label="The wedding invitation envelope">
+    <Petals muted={reducedMotion}/>
+    <div className="envelope-intro-copy">
+      <span className="intro-overline">A LITTLE SOMETHING, SEALED WITH LOVE</span>
+      <h1>A Special Invitation <em>For You</em></h1>
+      <p>Our invitation, opened with love</p>
+    </div>
+    <div className={`envelope-stage ${opened ? 'is-opening' : ''} ${cardUp ? 'card-is-up' : ''}`}>
+      <div className="envelope-glow"/>
+      <div className="invitation-paper">
+        <div className="paper-floral-corner top-left">✿</div>
+        <div className="paper-floral-corner top-right">❀</div>
+        <span className="paper-mantra">॥ श्री गणेशाय नमः ॥</span>
+        <span className="paper-caption">THE WEDDING CELEBRATION OF</span>
+        <strong>{wedding.groom.name}</strong>
+        <i className="paper-amp">&</i>
+        <strong>{wedding.bride.name}</strong>
+        <span className="paper-date">05 · 08 · 09 DECEMBER {wedding.eventYear}</span>
+        <span className="paper-venue">DARBHANGA · BIHAR</span>
+      </div>
+      <div className="envelope-body">
+        <div className="envelope-texture"/>
+        <div className="envelope-back-fold"/>
+        <div className="envelope-pocket-left"/>
+        <div className="envelope-pocket-right"/>
+        <div className="envelope-pocket-bottom"/>
+        <div className="envelope-flap"><span/></div>
+        <div className="gold-wax-seal" aria-hidden="true">
+          <span className="wax-edge"/>
+          <span className="wax-center"><Heart size={25} fill="currentColor" strokeWidth={1.2}/></span>
+        </div>
+      </div>
+    </div>
+    <div className="envelope-under-copy">
+      <span className="tiny-flourish">✦</span>
+      <span>WITH LOVE, ASHISH & PUSHPANJALI</span>
+      <span className="tiny-flourish">✦</span>
+    </div>
+    <a className="envelope-scroll-hint" href="#home">SCROLL TO EXPLORE <ChevronDown size={15}/></a>
+  </section>;
+}
+
+
 function CountDown() {
   const target = useMemo(() => new Date(`${wedding.eventYear}-12-09T00:00:00+05:30`).getTime(), []);
   const [now, setNow] = useState(Date.now());
@@ -242,6 +317,7 @@ export default function App() {
     <audio ref={audio} src={wedding.backgroundMusic} loop preload="none" onPause={() => setMusicOn(false)} onPlay={() => setMusicOn(true)}/>
     <div className="invite-website"><div className="page-progress" style={{ transform: `scaleX(${scrollPct})` }}/>
         <main>
+          <EnvelopeOpening/>
           <section className="invite-hero" id="home">
             <Petals muted={reducedMotion}/>
             <div className="hero-card-art" data-reveal>
