@@ -399,3 +399,6 @@ body{
   .flying-butterfly{opacity:.72}
 }
 @media(prefers-reduced-motion:reduce){.butterfly-flight{display:none}.flying-butterfly{animation:none}}
+
+.butterfly-glyph{display:inline-block;transform-origin:50% 52%;animation:butterfly-wing-flap .42s ease-in-out infinite alternate}
+@keyframes butterfly-wing-flap{from{transform:scale(.9,.78) rotate(-8deg)}to{transform:scale(1.08,1) rotate(8deg)}}
