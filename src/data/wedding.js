@@ -15,7 +15,7 @@ export const wedding = {
     fatherHindi: 'प्राचार्य प्रेम कुमार (एम.जी. कॉलेज, दरभंगा)',
     mother: 'KAVITA DEVI',
     motherHindi: 'कविता देवी',
-    photo: '/images/family-composition.webp',
+    photo: '/images/bride-portrait.webp',
     photoAlt: 'Pushpanjali Kumari, the bride',
   },
   groom: {
@@ -25,7 +25,7 @@ export const wedding = {
     fatherHindi: 'स्वर्गीय जय प्रकाश गुप्ता',
     mother: 'SMT. KIRAN DEVI',
     motherHindi: 'श्रीमती किरण देवी',
-    photo: '/images/family-composition.webp',
+    photo: '/images/groom-portrait.webp',
     photoAlt: 'Ashish Kumar Gupta, the groom',
   },
   events: [
