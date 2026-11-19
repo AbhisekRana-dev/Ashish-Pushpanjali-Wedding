@@ -213,6 +213,19 @@ function EventCard({ event }) {
   </article>;
 }
 
+function InvitationShowcase() {
+  return <section className="invite-section invitation-showcase-section" id="invitation">
+    <SectionHeading eyebrow="THE WEDDING INVITATION" title="A Beautiful" accent="Beginning"/>
+    <figure className="editorial-preview editorial-preview-photo" data-reveal>
+      <a className="editorial-couple-photo-link" href={wedding.invitationCardImage} target="_blank" rel="noreferrer" aria-label="Open the full wedding invitation card">
+        <img className="editorial-couple-photo" src={wedding.invitationCardImage} alt="Ashish Kumar Gupta and Pushpanjali Kumari together in wedding attire, with their wedding dates and Darbhanga location" loading="lazy"/>
+        <span className="editorial-preview-open">OPEN INVITATION <ArrowUpRight size={14}/></span>
+      </a>
+      <figcaption><span>॥ श्री गणेशाय नमः ॥</span><small>A CELEBRATION OF LOVE · {wedding.eventYear}</small></figcaption>
+    </figure>
+  </section>;
+}
+
 function FamilyBlessings() {
   return <section className="family-composition-section" aria-label="The two families" id="families">
     <a className="family-composition-link" href="/images/family-composition.webp" target="_blank" rel="noreferrer" aria-label="Open the full family celebration portrait">
