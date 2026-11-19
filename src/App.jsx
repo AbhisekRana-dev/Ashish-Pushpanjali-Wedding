@@ -324,7 +324,8 @@ function Venue() {
 }
 
 function RSVP() {
-  const eventSymbols = { 'MATKOR PUJA': '🌿', 'HALDI & MEHNDI': '🥣', WEDDING: '🔥' };
+  const eventSymbols = { 'MATKOR PUJA': '🏺', 'HALDI & MEHNDI': '🥣', WEDDING: '🔥' };
+  const eventTitles = { 'MATKOR PUJA': 'Matkor Puja', 'HALDI & MEHNDI': 'Haldi & Mehndi', WEDDING: 'Wedding Muhurat' };
   return <section className="rsvp-invitation closing-invitation" id="rsvp" aria-label="Wedding invitation from the bride's family">
     <div className="closing-floral-corners" aria-hidden="true">
       <span className="closing-floral closing-floral-left">✿ ❀ 🌹</span>
@@ -345,7 +346,7 @@ function RSVP() {
       <div className="closing-event-frame">
         <div className="closing-event-grid">
           {wedding.events.map(event => {
-            const title = event.name === 'WEDDING' ? 'WEDDING MUHURAT' : event.name;
+            const title = eventTitles[event.name] || event.name;
             const date = new Date(`${event.isoDate}T12:00:00`).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
             return <article className="closing-event-card" key={event.number}>
               <span className="closing-event-symbol" aria-hidden="true">{eventSymbols[event.name] || '✿'}</span>
@@ -361,33 +362,6 @@ function RSVP() {
       <div className="closing-family-name">The Family of {wedding.bride.name.split(' ').map(n => n[0] + n.slice(1).toLowerCase()).join(' ')}</div>
       <p className="closing-invitation-hindi">सादर आमंत्रण एवं हार्दिक स्वागत</p>
     </div>
-  </section>;
-}
-
-function BlessingForm() {
-  const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
-  const [items, setItems] = useState(() => {
-    try { const parsed = JSON.parse(localStorage.getItem('ashish-pushpanjali-wishes') || '[]'); return Array.isArray(parsed) ? parsed.slice(0, 8) : []; }
-    catch { return []; }
-  });
-  const submit = e => {
-    e.preventDefault();
-    if (!name.trim() || !message.trim()) return;
-    const next = [{ id: Date.now(), name: name.trim(), message: message.trim() }, ...items].slice(0, 8);
-    setItems(next);
-    try { localStorage.setItem('ashish-pushpanjali-wishes', JSON.stringify(next)); } catch { /* local storage not available */ }
-    setName(''); setMessage('');
-  };
-  return <section className="wishes-section" id="wishes">
-    <SectionHeading eyebrow="BLESSINGS FOR OUR BELOVED DAUGHTER" title="Your Wishes" accent="Our Treasure"/>
-    <form className="wish-form" onSubmit={submit}>
-      <input value={name} onChange={e => setName(e.target.value)} maxLength={50} placeholder="Your name" required aria-label="Your name"/>
-      <textarea value={message} onChange={e => setMessage(e.target.value)} maxLength={220} rows={3} placeholder="Leave a lovely message..." required aria-label="Your message"/>
-      <button type="submit">SEND A WISH <Heart size={14}/></button>
-      <small>Wishes are stored only in this browser, not sent to the couple.</small>
-    </form>
-    {items.length > 0 && <div className="wish-list">{items.map(item=><blockquote key={item.id}><p>“{item.message}”</p><cite>— {item.name}</cite></blockquote>)}</div>}
   </section>;
 }
 
@@ -572,7 +546,6 @@ export default function App() {
 
           <Gallery onOpen={openPhoto}/>
 
-          <BlessingForm/>
           <RSVP/>
           </>}
         </main>
