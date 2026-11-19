@@ -129,6 +129,8 @@ body{background:linear-gradient(180deg,#FFF8F0 0%,#F4C7D4 26%,#E9DDF2 52%,#F7EBD
 .envelope-scroll-section .envelope-intro-copy h1{font-size:clamp(32px,5vw,50px)}
 .envelope-scroll-section .envelope-intro-copy p{color:#8e5b70}
 .envelope-scroll-section .envelope-stage{z-index:2;flex:none;width:min(470px,88vw);height:clamp(285px,62vw,370px)}
+.envelope-scroll-section .envelope-stage{cursor:pointer;touch-action:manipulation;outline:none}
+.envelope-scroll-section .envelope-stage:focus-visible{outline:3px solid #D6B46A;outline-offset:8px;border-radius:8px}
 .envelope-scroll-section .envelope-under-copy{z-index:2;margin-top:12px}
 .envelope-scroll-hint{
   position:relative;z-index:2;display:flex;gap:8px;align-items:center;margin-top:26px;
