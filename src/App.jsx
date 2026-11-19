@@ -19,6 +19,19 @@ function Petals({ muted = false }) {
 }
 
 
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (!media) return;
+    const update = () => setReduced(media.matches);
+    update();
+    media.addEventListener?.('change', update);
+    return () => media.removeEventListener?.('change', update);
+  }, []);
+  return reduced;
+}
+
 function useReveal(enabled) {
   useEffect(() => {
     if (!enabled) return;
@@ -283,6 +296,7 @@ function Footer() {
 }
 
 export default function App() {
+  const reducedMotion = useReducedMotion();
   const [activePhoto, setActivePhoto] = useState(-1);
   const [showBlessing, setShowBlessing] = useState(false);
   const [blessing, setBlessing] = useState(0);
