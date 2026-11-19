@@ -1112,3 +1112,34 @@ nav.mobile-quick-dock,
   .family-composition-section{padding:16px 9px}
   .family-composition-link{border-width:1px;box-shadow:0 10px 26px rgba(75,34,47,.12)}
 }
+
+
+/* Bride-family ordering: reuse the existing family artwork as portrait crops. */
+.family-profile-portrait.portrait-bride{
+  background-image:url('/images/family-composition.webp');
+  background-size:625% auto;
+  background-position:76% 38%;
+}
+.family-profile-portrait.portrait-groom{
+  background-image:url('/images/family-composition.webp');
+  background-size:625% auto;
+  background-position:28% 38%;
+}
+.editorial-share-actions{
+  justify-content:center;
+  margin:24px auto 0;
+}
+.editorial-share-actions .editorial-primary-action{
+  min-height:50px;
+}
+@media(max-width:700px){
+  .editorial-share-actions{margin-top:18px}
+  .editorial-share-actions .editorial-primary-action{
+    width:100%;
+    min-height:48px;
+    padding-inline:14px;
+    justify-content:center;
+    gap:10px;
+    text-align:center;
+  }
+}
